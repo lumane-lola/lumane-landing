@@ -217,3 +217,75 @@ section.tight { padding: 80px 0; }
 }
 
 .scroll-mt { scroll-margin-top: 80px; }
+
+/* ─── Mobile (≤768px) ────────────────────────────────────
+   Inline styles (React style={{}}) win the cascade, so this
+   block uses attribute selectors + !important to override.
+*/
+@media (max-width: 768px) {
+  /* Containers */
+  .wrap, .wrap-narrow { padding: 0 20px; }
+  .nav { padding: 14px 20px; }
+
+  /* Header: tighten 3-item nav so it fits */
+  .nav-links { gap: 14px; font-size: 12px; }
+  .nav-links a.btn { padding: 7px 12px; }
+
+  /* Section spacing — overrides inline 110/120/140px paddings */
+  section[style] { padding-top: 56px !important; padding-bottom: 56px !important; }
+
+  /* Collapse the wide multi-column grids used throughout the site
+     (1.35fr 1fr, 1fr 1.2fr, 1fr 1.4fr, 1.4fr 1fr, 1fr 1.6fr,
+     1.2fr 2fr, repeat(3, 1fr)). Small 1fr 1fr grids — billing
+     toggle, mismatch comparison — are intentionally untouched. */
+  [style*="1.1fr"],
+  [style*="1.2fr"],
+  [style*="1.35fr"],
+  [style*="1.4fr"],
+  [style*="1.6fr"],
+  [style*="repeat(3"],
+  [style*="repeat(4"] {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  /* Pillar's reverse trick uses direction:rtl on the grid —
+     undo so text reads top-to-bottom in source order on mobile */
+  [style*="direction: rtl"],
+  [style*="direction:rtl"] { direction: ltr !important; }
+
+  /* Floating .ui-card overlays: take them out of absolute
+     positioning so they flow below their photo as block-level cards */
+  .ui-card[style*="absolute"] {
+    position: relative !important;
+    inset: auto !important;
+    left: auto !important; right: auto !important;
+    top: auto !important; bottom: auto !important;
+    width: 100% !important; max-width: 100% !important;
+    margin-top: 16px !important;
+  }
+
+  /* Photos: cap the inline min-heights (420–460px) so they
+     don't dominate the viewport. Aspect-ratio still applies. */
+  .photo[style*="min-height"] {
+    min-height: 240px !important;
+  }
+
+  /* Hero: shrink the 160px gap between copy and imagery */
+  [style*="margin-top: 160"] { margin-top: 56px !important; }
+
+  /* Pricing card padding 36 and InstitutionalCallout 44/48 */
+  [style*="padding: 36"] { padding: 22px !important; }
+  [style*="padding: 44px 48px"] { padding: 28px 22px !important; }
+
+  /* Footer right-column flex: collapse the 96px column gap */
+  .footer [style*="gap: 96"] {
+    gap: 32px !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap;
+  }
+
+  /* ReadinessVisual phone + floating tag: keep phone centered,
+     prevent the absolute "AUTO-PREPARED" tag from colliding —
+     handled by the .ui-card absolute → relative rule above. */
+}
