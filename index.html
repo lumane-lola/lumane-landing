@@ -39,7 +39,12 @@ function App() {
 
         <Pillar
           header="Walk into every appointment knowing what to ask."
-          body={<p>Before each visit, generate a one-page summary: reconciled medications, recent labs, conditions across all their doctors, and the questions you want to remember to ask. Hand it to the nurse, or send it ahead.</p>}
+          body={<>
+            <p>Before each visit, generate a one-page summary: reconciled medications, recent labs, conditions across all their doctors, and the questions you want to remember to ask. Hand it to the nurse, or send it ahead.</p>
+            <div style={{ marginTop: 28 }}>
+              <a href="/signup.html" className="btn btn-primary">Get started →</a>
+            </div>
+          </>}
           visual={<ReadinessVisual />}
         />
 
