@@ -30,9 +30,6 @@ body {
   line-height: 1.55;
 }
 
-/* Hide the inline mobile-only AUTO-PREPARED card on desktop.
-   Mobile media query below flips this. */
-.auto-prepared-inline { display: none; }
 
 .font-display {
   font-family: 'Lora', Georgia, serif;
@@ -285,11 +282,8 @@ section.tight { padding: 80px 0; }
     bottom: -20px !important;
   }
 
-  /* Pillar 2: hide the floating AUTO-PREPARED tag, show the inline
-     copy that lives inside the phone (between Questions and the
-     Email/Print buttons). */
+  /* Pillar 2: drop the floating AUTO-PREPARED tag entirely on mobile. */
   .auto-prepared-floating { display: none !important; }
-  .auto-prepared-inline { display: block !important; }
 
   /* Photos: the source images are 4:5 portrait, but desktop containers
      force landscape aspect ratios (5/4, 21/9). On mobile that produces
