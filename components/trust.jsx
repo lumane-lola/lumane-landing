@@ -142,8 +142,8 @@ function Footer() {
       { label: 'For facilities', href: '/for-facilities.html' },
     ]},
     { title: 'Legal', links: [
-      { label: 'Privacy', href: '/Lumane_Privacy_Policy.pdf' },
-      { label: 'Terms', href: '/Lumane_Terms_of_Service.pdf' },
+      { label: 'Privacy', href: '/Lumane_Privacy_Policy.pdf', target: '_blank' },
+      { label: 'Terms', href: '/Lumane_Terms_of_Service.pdf', target: '_blank' },
     ]},
   ];
   return (
@@ -162,7 +162,7 @@ function Footer() {
                 <div className="mono" style={{ marginBottom: 18 }}>{c.title}</div>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
                   {c.links.map((l) => (
-                    <li key={l.label}><a href={l.href} style={{ fontSize: 14, color: 'var(--ink)', opacity: 0.78 }}>{l.label}</a></li>
+                    <li key={l.label}><a href={l.href} target={l.target} rel={l.target === '_blank' ? 'noopener noreferrer' : undefined} style={{ fontSize: 14, color: 'var(--ink)', opacity: 0.78 }}>{l.label}</a></li>
                   ))}
                 </ul>
               </div>
