@@ -142,8 +142,8 @@ function Footer() {
       { label: 'For facilities', href: '/for-facilities.html' },
     ]},
     { title: 'Legal', links: [
-      { label: 'Privacy', href: '#' },
-      { label: 'Terms', href: '#' },
+      { label: 'Privacy', href: '/Lumane_Privacy_Policy.pdf' },
+      { label: 'Terms', href: '/Lumane_Terms_of_Service.pdf' },
     ]},
   ];
   return (
