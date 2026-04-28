@@ -5,7 +5,7 @@ function TrustSection() {
   const points = [
     { k: 'Patient consent at the core', v: 'Your parent gives informed consent before any record is pulled. They can revoke it from any device, any time.' },
     { k: 'No record sharing without you', v: 'We never share data without your consent. We are not an ad network or a broker.' },
-    { k: 'Built on the substrate hospitals trust', v: 'HL7 FHIR R4, USCDI v3, SOC 2 Type II, HIPAA. The same plumbing your hospital already uses.' },
+    { k: 'Built on the substrate hospitals trust', v: 'HL7 FHIR R4, USCDI v3, HIPAA. The same plumbing your hospital already uses.' },
   ];
   return (
     <section style={{ padding: '120px 0', background: 'var(--beige)' }}>
@@ -144,7 +144,6 @@ function Footer() {
     { title: 'Legal', links: [
       { label: 'Privacy', href: '#' },
       { label: 'Terms', href: '#' },
-      { label: 'HIPAA', href: '#' },
     ]},
   ];
   return (
