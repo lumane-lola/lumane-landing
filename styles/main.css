@@ -227,9 +227,11 @@ section.tight { padding: 80px 0; }
   .wrap, .wrap-narrow { padding: 0 20px; }
   .nav { padding: 14px 20px; }
 
-  /* Header: tighten 3-item nav so it fits */
-  .nav-links { gap: 14px; font-size: 12px; }
-  .nav-links a.btn { padding: 7px 12px; }
+  /* Header: hide text links on mobile, keep just the Get started button.
+     About + For facilities remain reachable from the footer. */
+  .nav-links { gap: 12px; }
+  .nav-links a:not(.btn) { display: none; }
+  .nav-links a.btn { padding: 7px 14px; font-size: 12.5px; }
 
   /* Section spacing — overrides inline 110/120/140px paddings */
   section[style] { padding-top: 56px !important; padding-bottom: 56px !important; }
@@ -265,11 +267,27 @@ section.tight { padding: 80px 0; }
     margin-top: 16px !important;
   }
 
-  /* Photos: cap the inline min-heights (420–460px) so they
-     don't dominate the viewport. Aspect-ratio still applies. */
-  .photo[style*="min-height"] {
-    min-height: 240px !important;
+  /* Photos: the source images are 4:5 portrait, but desktop containers
+     force landscape aspect ratios (5/4, 21/9). On mobile that produces
+     severe vertical cropping. Force portrait aspect on mobile so the
+     full image is visible, and clear inline min-heights / fixed heights. */
+  .photo {
+    aspect-ratio: 4 / 5 !important;
+    min-height: 0 !important;
+    height: auto !important;
   }
+  /* Same fix for non-.photo wrapper divs that set inline aspect-ratio
+     (about.html and for-facilities.html hero use 21/9 on a plain div) */
+  [style*="aspect-ratio: 21"],
+  [style*="aspect-ratio:21"],
+  [style*="aspect-ratio: 5/4"],
+  [style*="aspect-ratio: 5 / 4"] {
+    aspect-ratio: 4 / 5 !important;
+    min-height: 0 !important;
+  }
+  /* The ReadinessVisual backing photo is positioned absolutely with
+     inset; aspect-ratio is ignored when all four sides are pinned, so
+     this rule doesn't affect it. */
 
   /* Hero: shrink the 160px gap between copy and imagery */
   [style*="margin-top: 160"] { margin-top: 56px !important; }
@@ -277,6 +295,15 @@ section.tight { padding: 80px 0; }
   /* Pricing card padding 36 and InstitutionalCallout 44/48 */
   [style*="padding: 36"] { padding: 22px !important; }
   [style*="padding: 44px 48px"] { padding: 28px 22px !important; }
+
+  /* About + For-facilities hero callout: kills the negative-margin
+     overlap and 48px side margins that produced "skinny" text columns. */
+  [style*="margin-top: -120"] {
+    margin-top: 16px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 24px 22px !important;
+  }
 
   /* Footer right-column flex: collapse the 96px column gap */
   .footer [style*="gap: 96"] {
