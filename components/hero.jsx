@@ -33,12 +33,24 @@ function Hero() {
         </p>
 
         <div className="rise rise-4" style={{ display: 'flex', gap: 12, marginTop: 36 }}>
-          <a href="signup.html" className="btn btn-primary">Start free →</a>
-          <a href="#how" className="btn btn-outline">See how it works</a>
+          <a href="/signup.html" className="btn btn-primary">Get started →</a>
+          <a
+            href="#how"
+            className="btn btn-outline"
+            onClick={(e) => {
+              const el = document.getElementById('how');
+              if (el) {
+                e.preventDefault();
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }}
+          >
+            See how it works
+          </a>
         </div>
 
         {/* Imagery + proof bar — fit one viewport, preserve rhythm */}
-        <div style={{
+        <div id="how" style={{
           marginTop: 160,
           display: 'flex',
           flexDirection: 'column',

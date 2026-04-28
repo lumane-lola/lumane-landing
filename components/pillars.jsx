@@ -1,9 +1,9 @@
 /* global React */
 
 // ─── Pillar Section wrapper ──────────────────────────────
-function Pillar({ number, eyebrow, header, body, visual, reverse, accent }) {
+function Pillar({ id, number, eyebrow, header, body, visual, reverse, accent }) {
   return (
-    <section style={{ padding: '110px 0' }}>
+    <section id={id} style={{ padding: '110px 0' }}>
       <div className="wrap">
         <div style={{
           display: 'grid',

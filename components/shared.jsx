@@ -21,7 +21,7 @@ function Photo({ tone = 'warm-1', label, shot, src, className = '', style }) {
 // ─── Logo lockup ─────────────────────────────────────────
 function Brand() {
   return (
-    <a className="brand" href="#top" aria-label="Lumane home">
+    <a className="brand" href="/" aria-label="Lumane home">
       <span className="brand-dot"></span>
       Lumane
     </a>
@@ -35,9 +35,9 @@ function Header() {
       <nav className="nav">
         <Brand />
         <div className="nav-links">
-          <a href="#about">About</a>
-          <a href="#for-facilities">For facilities</a>
-          <a href="signup.html" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: 13, color: '#ffffff' }}>
+          <a href="/about.html">About</a>
+          <a href="/for-facilities.html">For facilities</a>
+          <a href="/signup.html" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: 13, color: '#ffffff' }}>
             Get started
           </a>
         </div>
