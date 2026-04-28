@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero underline explorations — Lumane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/main.css">
+<style>
+  body { background: #efeae3; }
+  .head-block {
+    padding: 56px 60px;
+    background: var(--bg);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .h-display em.target {
+    font-style: italic;
+    color: var(--teal-deep);
+    position: relative;
+    display: inline-block;
+  }
+  .underline-svg {
+    position: absolute;
+    left: -2%;
+    width: 104%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .stroke {
+    fill: none;
+    stroke: var(--teal-deep);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .lede-row { margin-top: 28px; max-width: 46ch; }
+  .ctas { display: flex; gap: 12px; margin-top: 32px; }
+  .variant-note {
+    margin-top: 36px;
+    padding-top: 18px;
+    border-top: 1px solid var(--tan);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .variant-note .note-body {
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="../lib/design-canvas.jsx"></script>
+
+<script type="text/babel">
+const { DesignCanvas, DCSection, DCArtboard } = window;
+
+// ── Variations of the underline SVG ──────────────────────
+function UnderlineSimple() {
+  // V1: Single soft sweeping arc, slightly thicker on right
+  return (
+    <svg className="underline-svg" style={{ bottom: -10, height: 18 }} viewBox="0 0 200 18" preserveAspectRatio="none">
+      <path
+        className="stroke"
+        d="M 4 9 Q 50 13, 100 10 T 196 8"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
+
+function UnderlineWavy() {
+  // V2: Slightly imperfect / wavy underline
+  return (
+    <svg className="underline-svg" style={{ bottom: -12, height: 20 }} viewBox="0 0 200 20" preserveAspectRatio="none">
+      <path
+        className="stroke"
+        d="M 3 11 C 30 7, 55 14, 80 10 S 130 13, 155 9 S 190 12, 197 10"
+        strokeWidth="1.8"
+      />
+    </svg>
+  );
+}
+
+function UnderlineDouble() {
+  // V3: Sketchy double-pass — two close strokes
+  return (
+    <svg className="underline-svg" style={{ bottom: -14, height: 22 }} viewBox="0 0 200 22" preserveAspectRatio="none">
+      <path
+        className="stroke"
+        d="M 5 9 Q 60 13, 120 10 T 195 8"
+        strokeWidth="1.7"
+        opacity="0.9"
+      />
+      <path
+        className="stroke"
+        d="M 7 13 Q 70 16, 130 14 T 193 12"
+        strokeWidth="1.4"
+        opacity="0.6"
+      />
+    </svg>
+  );
+}
+
+function UnderlineSwoosh() {
+  // V4: Long swoosh extending past with a tiny upward flick
+  return (
+    <svg className="underline-svg" style={{ bottom: -12, height: 26, left: '-4%', width: '116%' }} viewBox="0 0 240 26" preserveAspectRatio="none">
+      <path
+        className="stroke"
+        d="M 4 14 Q 60 18, 130 14 T 215 9 Q 225 7, 232 4"
+        strokeWidth="1.9"
+      />
+    </svg>
+  );
+}
+
+// ── Headline block component ─────────────────────────────
+function HeadlineBlock({ Underline, note }) {
+  return (
+    <div className="head-block">
+      <h1 className="h-display" style={{ maxWidth: '14ch' }}>
+        The whole picture of{' '}
+        <em className="target">
+          their health
+          <Underline />
+        </em>
+        , for the people who love them most.
+      </h1>
+
+      <p className="lede lede-row">
+        One consented view of every doctor your parent sees — specialists,
+        pharmacies, hospitals, even the small offices that still use paper.
+        Let us manage the records, so you can focus on your family.
+      </p>
+
+      <div className="ctas">
+        <a href="#start" className="btn btn-primary" style={{ color: '#fff' }}>Start free →</a>
+        <a href="#how" className="btn btn-outline">See how it works</a>
+      </div>
+
+      <div className="variant-note">
+        Underline study
+        <div className="note-body">{note}</div>
+      </div>
+    </div>
+  );
+}
+
+// ── Reference (no underline) ─────────────────────────────
+function HeadlineReference() {
+  return (
+    <div className="head-block">
+      <h1 className="h-display" style={{ maxWidth: '14ch' }}>
+        The whole picture of <em style={{ fontStyle: 'italic', color: 'var(--teal-deep)' }}>their health</em>, for the people who love them most.
+      </h1>
+      <p className="lede lede-row">
+        One consented view of every doctor your parent sees — specialists,
+        pharmacies, hospitals, even the small offices that still use paper.
+        Let us manage the records, so you can focus on your family.
+      </p>
+      <div className="ctas">
+        <a href="#start" className="btn btn-primary" style={{ color: '#fff' }}>Start free →</a>
+        <a href="#how" className="btn btn-outline">See how it works</a>
+      </div>
+      <div className="variant-note">
+        Current
+        <div className="note-body">No underline — the existing hero. Use as reference for comparison.</div>
+      </div>
+    </div>
+  );
+}
+
+const ABW = 760;
+const ABH = 540;
+
+function App() {
+  return (
+    <DesignCanvas title="Hero — underline explorations under “their health”" subtitle="Single-stroke marginalia marks beneath the italic phrase. Click an artboard to focus.">
+      <DCSection id="explorations" title="Underline studies">
+        <DCArtboard id="reference" label="Current — no underline" width={ABW} height={ABH}>
+          <HeadlineReference />
+        </DCArtboard>
+        <DCArtboard id="v1" label="V1 — Single soft arc" width={ABW} height={ABH}>
+          <HeadlineBlock
+            Underline={UnderlineSimple}
+            note="A clean single sweep. Calm, confident, almost imperceptible. Reads as deliberate emphasis without drawing attention to the gesture itself."
+          />
+        </DCArtboard>
+        <DCArtboard id="v2" label="V2 — Wavy / imperfect" width={ABW} height={ABH}>
+          <HeadlineBlock
+            Underline={UnderlineWavy}
+            note="Hand-drawn quality with subtle waver. Feels like marginalia from a book — warm, human, slightly informal."
+          />
+        </DCArtboard>
+        <DCArtboard id="v3" label="V3 — Sketchy double-pass" width={ABW} height={ABH}>
+          <HeadlineBlock
+            Underline={UnderlineDouble}
+            note="Two passes of the pen — one solid, one ghosted underneath. Reads as someone underlined this twice for emphasis. More editorial weight."
+          />
+        </DCArtboard>
+        <DCArtboard id="v4" label="V4 — Long swoosh with flick" width={ABW} height={ABH}>
+          <HeadlineBlock
+            Underline={UnderlineSwoosh}
+            note="Extends past the phrase with a tiny upward flick at the end — like signing a name. The most expressive, most New Yorker-ish option."
+          />
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

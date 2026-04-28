@@ -1,0 +1,15 @@
+# Local-only env (URL also lives in committed config.js since it ships to the browser)
+.env
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Project transient
+.design-canvas.state.json
+uploads/
+
+# Node (if ever added)
+node_modules/
+npm-debug.log*
