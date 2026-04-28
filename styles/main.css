@@ -28,11 +28,11 @@ body {
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern", "liga";
   line-height: 1.55;
-  /* Allow editorial overlays to spill past the viewport edge without
-     producing horizontal page scroll. `clip` (vs. `hidden`) leaves the
-     viewport as the scroll container so position: sticky still works. */
-  overflow-x: clip;
 }
+
+/* Hide the inline mobile-only AUTO-PREPARED card on desktop.
+   Mobile media query below flips this. */
+.auto-prepared-inline { display: none; }
 
 .font-display {
   font-family: 'Lora', Georgia, serif;
@@ -261,9 +261,35 @@ section.tight { padding: 80px 0; }
   [style*="direction:rtl"] { direction: ltr !important; }
 
   /* Floating .ui-card overlays stay absolutely positioned on mobile —
-     the small chips on hero / Pillar 1 / Pillar 2 are intentional
-     editorial overlays. body { overflow-x: clip } above prevents them
-     from causing horizontal scroll when they spill past the photo. */
+     they're intentional editorial overlays. Per-card rules below
+     resize/reposition each one so it fits within the photo bounds
+     (no viewport overflow, no need for body overflow-x: clip). */
+
+  /* Hero "NOW SYNCED · Mercy General" chip — keep in bottom-right corner
+     of the photo, just smaller and within the photo bounds. */
+  .ui-card[style*="right: -36"] {
+    right: 12px !important;
+    bottom: 14px !important;
+    width: 180px !important;
+    padding: 9px 11px !important;
+  }
+
+  /* Pillar 1 "1 MISMATCH FOUND" card — center horizontally relative to
+     the photo, with a subtle bottom overlap. */
+  .ui-card[style*="bottom: -32"] {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: 92% !important;
+    max-width: 360px !important;
+    bottom: -20px !important;
+  }
+
+  /* Pillar 2: hide the floating AUTO-PREPARED tag, show the inline
+     copy that lives inside the phone (between Questions and the
+     Email/Print buttons). */
+  .auto-prepared-floating { display: none !important; }
+  .auto-prepared-inline { display: block !important; }
 
   /* Photos: the source images are 4:5 portrait, but desktop containers
      force landscape aspect ratios (5/4, 21/9). On mobile that produces

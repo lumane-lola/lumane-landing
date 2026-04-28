@@ -194,6 +194,19 @@ function ReadinessVisual() {
             </div>
           </div>
 
+          {/* Inline AUTO-PREPARED — mobile only (paired with the floating
+              version below, which is desktop only). Sits between the
+              Questions box and the Email/Print action buttons. */}
+          <div className="auto-prepared-inline" style={{
+            marginTop: 12, padding: '10px 12px',
+            background: 'var(--card)', border: '1px solid var(--tan)', borderRadius: 8,
+          }}>
+            <div className="mono" style={{ fontSize: 8.5, color: 'var(--teal-deep)' }}>AUTO-PREPARED</div>
+            <div style={{ fontSize: 11, marginTop: 4, color: 'var(--ink)', lineHeight: 1.4 }}>
+              Generated 24 hours before each appointment.
+            </div>
+          </div>
+
           <div style={{
             position: 'absolute', bottom: 18, left: 18, right: 18,
             display: 'flex', gap: 8,
@@ -212,8 +225,8 @@ function ReadinessVisual() {
         </div>
       </div>
 
-      {/* Floating tag */}
-      <div className="ui-card" style={{
+      {/* Floating tag — desktop only. Mobile uses the inline copy above. */}
+      <div className="ui-card auto-prepared-floating" style={{
         position: 'absolute', right: '6%', top: 60, padding: '12px 14px', width: 200, zIndex: 3,
       }}>
         <div className="mono" style={{ fontSize: 9, color: 'var(--teal-deep)' }}>AUTO-PREPARED</div>
