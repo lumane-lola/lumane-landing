@@ -1,3 +1,3 @@
 window.LUMANE_CONFIG = {
-  SIGNUP_URL: 'https://script.google.com/macros/s/AKfycby_ZauEGywXk8_Y0UKJLoYh5VTBlAnbqMC5kKobEUWpdJxcG1D2IKIKC9ZpR7hPf4F-/exec',
+  SIGNUP_URL: 'https://script.google.com/macros/s/AKfycbxR3ZQXD653f5LpX8FgnSh8SyjVHhLz9XhG4d-aoy3E615Dcu8z1qsOzdAB4cNtTV5z/exec',
 };
