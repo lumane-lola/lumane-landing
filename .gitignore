@@ -5,6 +5,7 @@
 .DS_Store
 .vscode/
 .idea/
+.claude/
 
 # Project transient
 .design-canvas.state.json
