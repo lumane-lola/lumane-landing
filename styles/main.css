@@ -28,6 +28,10 @@ body {
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern", "liga";
   line-height: 1.55;
+  /* Allow editorial overlays to spill past the viewport edge without
+     producing horizontal page scroll. `clip` (vs. `hidden`) leaves the
+     viewport as the scroll container so position: sticky still works. */
+  overflow-x: clip;
 }
 
 .font-display {
@@ -256,22 +260,17 @@ section.tight { padding: 80px 0; }
   [style*="direction: rtl"],
   [style*="direction:rtl"] { direction: ltr !important; }
 
-  /* Floating .ui-card overlays: take them out of absolute
-     positioning so they flow below their photo as block-level cards */
-  .ui-card[style*="absolute"] {
-    position: relative !important;
-    inset: auto !important;
-    left: auto !important; right: auto !important;
-    top: auto !important; bottom: auto !important;
-    width: 100% !important; max-width: 100% !important;
-    margin-top: 16px !important;
-  }
+  /* Floating .ui-card overlays stay absolutely positioned on mobile —
+     the small chips on hero / Pillar 1 / Pillar 2 are intentional
+     editorial overlays. body { overflow-x: clip } above prevents them
+     from causing horizontal scroll when they spill past the photo. */
 
   /* Photos: the source images are 4:5 portrait, but desktop containers
      force landscape aspect ratios (5/4, 21/9). On mobile that produces
      severe vertical cropping. Force portrait aspect on mobile so the
-     full image is visible, and clear inline min-heights / fixed heights. */
-  .photo {
+     full image is visible. Excludes absolutely-positioned photos
+     (e.g. ReadinessVisual's backing strip) which size from their insets. */
+  .photo:not([style*="absolute"]) {
     aspect-ratio: 4 / 5 !important;
     min-height: 0 !important;
     height: auto !important;
