@@ -292,6 +292,11 @@ section.tight { padding: 80px 0; }
   /* Pillar 2: drop the floating AUTO-PREPARED tag entirely on mobile. */
   .auto-prepared-floating { display: none !important; }
 
+  /* The desktop-only forced break in the trust section's first point
+     ("Patient consent at / the core") collapses on mobile so the
+     title can flow naturally. */
+  br.trust-br { display: none; }
+
   /* Photos: the source images are 4:5 portrait, but desktop containers
      force landscape aspect ratios (5/4, 21/9). On mobile that produces
      severe vertical cropping. Force portrait aspect on mobile so the

@@ -3,7 +3,7 @@
 // ─── Trust Section ────────────────────────────────────────
 function TrustSection() {
   const points = [
-    { k: 'Patient consent at the core', v: 'Your parent gives informed consent before any record is pulled. They can revoke it from any device, any time.' },
+    { k: <>Patient consent at <br className="trust-br" />the core</>, v: 'Your parent gives informed consent before any record is pulled. They can revoke it from any device, any time.' },
     { k: 'No record sharing without you', v: 'We never share data without your consent. We are not an ad network or a broker.' },
     { k: 'Built on the substrate hospitals trust', v: 'HL7 FHIR R4, USCDI v3, HIPAA. The same plumbing your hospital already uses.' },
   ];
