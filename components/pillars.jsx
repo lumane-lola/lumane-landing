@@ -161,36 +161,64 @@ function ReadinessVisual() {
             width: 90, height: 22, background: '#1a1d22', borderRadius: 14,
           }}></div>
 
-          <div className="mono" style={{ fontSize: 9, color: 'var(--muted)' }}>VISIT BRIEF · 1 PAGE</div>
-          <div style={{ fontFamily: 'Lora, serif', fontSize: 19, fontWeight: 500, marginTop: 6, letterSpacing: '-0.012em', lineHeight: 1.2 }}>
-            Mom · Endocrinology<br/>Tue, May 5
+          <div className="mono" style={{ fontSize: 8.5, color: 'var(--muted)' }}>VISIT BRIEF · 1 PAGE</div>
+          <div style={{ fontFamily: 'Lora, serif', fontSize: 17, fontWeight: 500, marginTop: 8, letterSpacing: '-0.012em', lineHeight: 1.2 }}>
+            Mom · Endocrinology
+          </div>
+          <div className="mono" style={{ fontSize: 8.5, marginTop: 4, color: 'var(--muted)' }}>
+            TUE, MAY 5 · DR. PATEL
           </div>
 
-          <div style={{ marginTop: 18, padding: 12, background: 'var(--sand)', borderRadius: 8, border: '1px solid var(--tan)' }}>
-            <div className="mono" style={{ fontSize: 8.5 }}>RECONCILED MEDS</div>
-            <div style={{ fontSize: 11.5, marginTop: 6, color: 'var(--ink)', lineHeight: 1.5 }}>
-              Metformin 500 mg · 2× day<br/>
-              Metoprolol 25 mg · 2× day<br/>
-              Atorvastatin 20 mg · nightly
+          <div style={{ marginTop: 14 }}>
+            <div className="mono" style={{ fontSize: 8.5, color: 'var(--muted)' }}>RECONCILED MEDS</div>
+            {[
+              { name: 'Metformin 500 mg', sub: '2× DAY · ACTIVE', active: true },
+              { name: 'Metoprolol 25 mg', sub: '2× DAY · ACTIVE', active: true },
+              { name: 'Atorvastatin 20 mg', sub: 'NIGHTLY · ACTIVE', active: true },
+              { name: 'Lisinopril 10 mg', sub: 'CHANGED MAR 14', active: false },
+            ].map((m, i) => (
+              <div key={i} style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '7px 0', borderTop: '1px solid var(--tan)',
+              }}>
+                <div>
+                  <div style={{ fontSize: 11.5, color: 'var(--ink)', fontWeight: 500, lineHeight: 1.2 }}>{m.name}</div>
+                  <div className="mono" style={{ fontSize: 8, color: 'var(--muted)', marginTop: 2 }}>{m.sub}</div>
+                </div>
+                <div style={{
+                  width: 7, height: 7, borderRadius: '50%',
+                  background: m.active ? 'var(--teal)' : 'var(--tan)',
+                  boxShadow: m.active ? '0 0 0 3px rgba(50, 127, 119, 0.12)' : 'none',
+                }}></div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 12 }}>
+            <div className="mono" style={{ fontSize: 8.5, color: 'var(--muted)' }}>RECENT LABS</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 6 }}>
+              <div style={{ padding: 10, background: 'var(--sand)', borderRadius: 6, border: '1px solid var(--tan)' }}>
+                <div className="mono" style={{ fontSize: 8, color: 'var(--muted)' }}>A1C</div>
+                <div style={{ fontSize: 13, marginTop: 4, color: 'var(--ink)', fontWeight: 500 }}>
+                  7.2 <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 11 }}>↓ 0.4</span>
+                </div>
+                <div style={{ fontSize: 9.5, color: 'var(--muted)', marginTop: 3 }}>Apr 22</div>
+              </div>
+              <div style={{ padding: 10, background: 'var(--sand)', borderRadius: 6, border: '1px solid var(--tan)' }}>
+                <div className="mono" style={{ fontSize: 8, color: 'var(--muted)' }}>EGFR</div>
+                <div style={{ fontSize: 13, marginTop: 4, color: 'var(--ink)', fontWeight: 500 }}>
+                  68 <span style={{ color: 'var(--muted)', fontWeight: 400, fontSize: 11 }}>stable</span>
+                </div>
+                <div style={{ fontSize: 9.5, color: 'var(--muted)', marginTop: 3 }}>Apr 22</div>
+              </div>
             </div>
           </div>
 
-          <div style={{ marginTop: 12, padding: 12, background: 'var(--sand)', borderRadius: 8, border: '1px solid var(--tan)' }}>
-            <div className="mono" style={{ fontSize: 8.5 }}>RECENT LABS</div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, marginTop: 6, color: 'var(--ink)' }}>
-              <span>A1C</span><span style={{ fontWeight: 500 }}>7.2 ↓</span>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, marginTop: 4, color: 'var(--ink)' }}>
-              <span>eGFR</span><span style={{ fontWeight: 500 }}>68</span>
-            </div>
-          </div>
-
-          <div style={{ marginTop: 12, padding: 12, background: 'var(--teal-soft)', borderRadius: 8 }}>
+          <div style={{ marginTop: 12, padding: 10, background: 'var(--teal-soft)', borderRadius: 8 }}>
             <div className="mono" style={{ fontSize: 8.5, color: 'var(--teal-deep)' }}>QUESTIONS TO ASK</div>
-            <div style={{ fontSize: 11.5, marginTop: 6, color: 'var(--ink)', lineHeight: 1.55 }}>
-              · A1C trend since January<br/>
-              · New fatigue, 3 weeks<br/>
-              · Renew Metformin?
+            <div style={{ fontSize: 10.5, marginTop: 6, color: 'var(--ink)', lineHeight: 1.5 }}>
+              · A1C trend since January — adjust Metformin?<br/>
+              · New fatigue, ~3 weeks. Related to Lisinopril change?
             </div>
           </div>
 
