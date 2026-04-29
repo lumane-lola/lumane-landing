@@ -336,12 +336,25 @@ section.tight { padding: 80px 0; }
     padding: 24px 22px !important;
   }
 
-  /* Footer right-column flex: collapse the 96px column gap */
-  .footer [style*="gap: 96"] {
-    gap: 32px !important;
-    justify-content: flex-start !important;
-    flex-wrap: wrap;
+  /* Footer: keep the desktop 2-column layout on mobile (Lumane + ©
+     on the left, Company + Legal columns on the right). Just shrink
+     gaps, fonts, and column min-widths so it fits horizontally. */
+  .footer [style*="1.2fr 2fr"] {
+    grid-template-columns: 1.2fr 2fr !important;
+    gap: 16px !important;
   }
+  .footer [style*="gap: 96"] {
+    gap: 14px !important;
+    justify-content: flex-end !important;
+    flex-wrap: nowrap;
+  }
+  .footer [style*="min-width: 120"] {
+    min-width: 0 !important;
+  }
+  .footer .brand { font-size: 16px; }
+  .footer .mono { font-size: 9.5px; }
+  .footer ul li a { font-size: 12px; white-space: nowrap; }
+  .footer [style*="font-size: 12"] { font-size: 10.5px !important; }
 
   /* ReadinessVisual phone + floating tag: keep phone centered,
      prevent the absolute "AUTO-PREPARED" tag from colliding —
