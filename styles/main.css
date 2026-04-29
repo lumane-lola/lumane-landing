@@ -265,9 +265,17 @@ section.tight { padding: 80px 0; }
      of the photo, just smaller and within the photo bounds. */
   .ui-card[style*="right: -36"] {
     right: 12px !important;
-    bottom: 14px !important;
+    bottom: 36px !important;
     width: 180px !important;
     padding: 9px 11px !important;
+  }
+
+  /* About hero photo: the subjects are right-of-center, so when the
+     image is cropped to fit the mobile (4:5) container, default
+     "center" position cuts off their right side. Shift the focal
+     point right so the subjects stay in frame. */
+  .photo[style*="about-exhale"] {
+    background-position: 70% center !important;
   }
 
   /* Pillar 1 "1 MISMATCH FOUND" card — center horizontally relative to
