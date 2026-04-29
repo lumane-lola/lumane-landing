@@ -214,7 +214,7 @@ function ReadinessVisual() {
 
       {/* Floating tag — desktop only; hidden on mobile via CSS. */}
       <div className="ui-card auto-prepared-floating" style={{
-        position: 'absolute', right: '6%', top: 60, padding: '12px 14px', width: 200, zIndex: 3,
+        position: 'absolute', right: '1%', top: 60, padding: '12px 14px', width: 200, zIndex: 3,
       }}>
         <div className="mono" style={{ fontSize: 9, color: 'var(--teal-deep)' }}>AUTO-PREPARED</div>
         <div style={{ fontSize: 12.5, marginTop: 6, color: 'var(--ink)', lineHeight: 1.4 }}>
