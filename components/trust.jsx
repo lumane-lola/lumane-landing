@@ -105,7 +105,7 @@ function InstitutionalCallout() {
             </p>
           </div>
           <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-            <a href="#facility-demo" className="btn btn-primary">Book a 15-min demo</a>
+            <a href="/facility-demo.html" className="btn btn-primary">Book a 15-min demo</a>
           </div>
         </div>
       </div>

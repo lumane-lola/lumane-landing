@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a demo — Lumane for facilities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
+<style>
+  /* Form-specific styles (mirrors signup.html). */
+  .form-grid { display: grid; gap: 22px; }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+  .field-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .field-label .optional {
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-left: 6px;
+    opacity: 0.8;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: #ffffff;
+    border: 1px solid var(--tan);
+    border-radius: 10px;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+    box-sizing: border-box;
+  }
+  .form-input:hover { border-color: var(--taupe); }
+  .form-input:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(50,127,119,0.12);
+  }
+  .form-input::placeholder { color: var(--muted); opacity: 0.7; }
+
+  /* Segmented facility-type picker — 5 options, so 3-up on desktop / 2-up on mobile. */
+  .seg-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 560px) { .seg-group { grid-template-columns: repeat(2, 1fr); } }
+
+  .seg-option {
+    position: relative;
+    padding: 14px 12px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid var(--tan);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    transition: all .15s ease;
+    user-select: none;
+  }
+  .seg-option:hover { border-color: var(--taupe); transform: translateY(-1px); }
+  .seg-option.is-selected {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #ffffff;
+    box-shadow: 0 6px 18px -8px rgba(50,127,119,0.5);
+  }
+
+  .form-help {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .submit-row { margin-top: 8px; }
+  .submit-row .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .signup-card {
+    background: var(--sand);
+    border: 1px solid var(--tan);
+    border-radius: 14px;
+    padding: 48px;
+    box-shadow: 0 24px 60px -28px rgba(20,16,12,0.18);
+  }
+  @media (max-width: 640px) { .signup-card { padding: 32px 24px; } }
+
+  /* Success state */
+  .success-state {
+    text-align: center;
+    padding: 32px 20px 20px;
+  }
+  .success-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="config.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="components/shared.jsx"></script>
+<script type="text/babel" src="components/trust.jsx"></script>
+
+<script type="text/babel">
+const { useState } = React;
+
+const FACILITY_TYPES = [
+  { id: 'skilled-nursing', label: 'Skilled Nursing' },
+  { id: 'assisted-living', label: 'Assisted Living' },
+  { id: 'home-health', label: 'Home Health' },
+  { id: 'hospital', label: 'Hospital' },
+  { id: 'other', label: 'Other' },
+];
+
+function FacilityDemoForm() {
+  const [form, setForm] = useState({
+    name: '',
+    facilityName: '',
+    role: '',
+    facilityType: '',
+    email: '',
+    phone: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [errors, setErrors] = useState({});
+
+  function update(key, value) {
+    setForm((f) => ({ ...f, [key]: value }));
+    if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
+  }
+
+  function validate() {
+    const e = {};
+    if (!form.name.trim()) e.name = 'Required';
+    if (!form.facilityName.trim()) e.facilityName = 'Required';
+    if (!form.role.trim()) e.role = 'Required';
+    if (!form.facilityType) e.facilityType = 'Required';
+    if (!form.email.trim()) e.email = 'Required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email';
+    return e;
+  }
+
+  async function handleSubmit(ev) {
+    ev.preventDefault();
+    const eobj = validate();
+    if (Object.keys(eobj).length > 0) { setErrors(eobj); return; }
+
+    const url = (window.LUMANE_CONFIG || {}).SIGNUP_URL;
+    if (!url) {
+      setSubmitError('Submission is temporarily unavailable. Please email hello@lumane.health.');
+      return;
+    }
+
+    setSubmitting(true);
+    setSubmitError('');
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          formType: 'facility-demo',
+          name: form.name.trim(),
+          facilityName: form.facilityName.trim(),
+          role: form.role.trim(),
+          facilityType: form.facilityType,
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          userAgent: navigator.userAgent,
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.ok) {
+        if (json && json.fields) setErrors(json.fields);
+        setSubmitError(json.error || 'Something went wrong. Please try again.');
+        return;
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError('Network error. Please check your connection and try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div className="success-state">
+        <div className="success-icon">✓</div>
+        <h2 className="font-display" style={{ fontSize: 28, marginBottom: 12 }}>Thanks — we'll be in touch.</h2>
+        <p className="body" style={{ maxWidth: '44ch', margin: '0 auto', color: 'var(--muted)' }}>
+          We'll reach out to <strong style={{ color: 'var(--ink)' }}>{form.email}</strong> within one business day to schedule your 15-minute demo.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form className="form-grid" onSubmit={handleSubmit} noValidate>
+      {/* Full name */}
+      <div>
+        <label className="field-label" htmlFor="name">Your name</label>
+        <input
+          id="name"
+          type="text"
+          className="form-input"
+          placeholder="Maria Reyes"
+          value={form.name}
+          onChange={(e) => update('name', e.target.value)}
+          autoComplete="name"
+          style={errors.name ? { borderColor: '#b8463a' } : undefined}
+        />
+        {errors.name && <div className="form-help" style={{ color: '#b8463a' }}>{errors.name}</div>}
+      </div>
+
+      {/* Facility name + Role */}
+      <div className="form-row-2">
+        <div>
+          <label className="field-label" htmlFor="facilityName">Facility name</label>
+          <input
+            id="facilityName"
+            type="text"
+            className="form-input"
+            placeholder="Mercy Manor"
+            value={form.facilityName}
+            onChange={(e) => update('facilityName', e.target.value)}
+            autoComplete="organization"
+            style={errors.facilityName ? { borderColor: '#b8463a' } : undefined}
+          />
+          {errors.facilityName && <div className="form-help" style={{ color: '#b8463a' }}>{errors.facilityName}</div>}
+        </div>
+        <div>
+          <label className="field-label" htmlFor="role">Your role</label>
+          <input
+            id="role"
+            type="text"
+            className="form-input"
+            placeholder="Director of Nursing"
+            value={form.role}
+            onChange={(e) => update('role', e.target.value)}
+            autoComplete="organization-title"
+            style={errors.role ? { borderColor: '#b8463a' } : undefined}
+          />
+          {errors.role && <div className="form-help" style={{ color: '#b8463a' }}>{errors.role}</div>}
+        </div>
+      </div>
+
+      {/* Facility type */}
+      <div>
+        <label className="field-label">Facility type</label>
+        <div className="seg-group" role="radiogroup" aria-label="Facility type">
+          {FACILITY_TYPES.map((t) => (
+            <div
+              key={t.id}
+              role="radio"
+              aria-checked={form.facilityType === t.id}
+              tabIndex={0}
+              className={'seg-option' + (form.facilityType === t.id ? ' is-selected' : '')}
+              onClick={() => update('facilityType', t.id)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); update('facilityType', t.id); } }}
+            >
+              {t.label}
+            </div>
+          ))}
+        </div>
+        {errors.facilityType && <div className="form-help" style={{ color: '#b8463a' }}>{errors.facilityType}</div>}
+      </div>
+
+      {/* Work email */}
+      <div>
+        <label className="field-label" htmlFor="email">Work email</label>
+        <input
+          id="email"
+          type="email"
+          className="form-input"
+          placeholder="you@facility.org"
+          value={form.email}
+          onChange={(e) => update('email', e.target.value)}
+          autoComplete="email"
+          style={errors.email ? { borderColor: '#b8463a' } : undefined}
+        />
+        {errors.email && <div className="form-help" style={{ color: '#b8463a' }}>{errors.email}</div>}
+      </div>
+
+      {/* Phone */}
+      <div>
+        <label className="field-label" htmlFor="phone">
+          Phone <span className="optional">— optional</span>
+        </label>
+        <input
+          id="phone"
+          type="tel"
+          className="form-input"
+          placeholder="(555) 123-4567"
+          value={form.phone}
+          onChange={(e) => update('phone', e.target.value)}
+          autoComplete="tel"
+        />
+      </div>
+
+      {/* Submit */}
+      <div className="submit-row">
+        <button type="submit" className="btn btn-primary" disabled={submitting}>
+          {submitting ? 'Submitting…' : 'Book my demo →'}
+        </button>
+        {submitError && (
+          <div className="form-help" style={{ color: '#b8463a', marginTop: 12, textAlign: 'center' }}>
+            {submitError}
+          </div>
+        )}
+      </div>
+    </form>
+  );
+}
+
+function FacilityDemoHero() {
+  return (
+    <section style={{ padding: '60px 0 100px' }}>
+      <div className="wrap" style={{ maxWidth: 1100 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1.1fr',
+          gap: 64,
+          alignItems: 'start',
+        }}>
+          {/* Left: pitch */}
+          <div style={{ paddingTop: 12 }}>
+            <div className="mono" style={{ marginBottom: 22, color: 'var(--teal-deep)' }}>◦ &nbsp; For facilities &amp; care teams</div>
+            <h1 className="font-display" style={{ fontSize: 44, lineHeight: 1.12, marginBottom: 22 }}>
+              Book a 15-minute demo.
+            </h1>
+            <p className="lede" style={{ maxWidth: '40ch', marginBottom: 28 }}>
+              Tell us a little about your facility. We'll show you how Lumane assembles a complete medication list, conditions list, and clinical history at admission — in 10 minutes instead of 90.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, fontSize: 14, color: 'var(--ink)' }}>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <span style={{ color: 'var(--teal)' }}>✓</span>
+                <span>Live walkthrough with a real example</span>
+              </div>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <span style={{ color: 'var(--teal)' }}>✓</span>
+                <span>Source attribution your staff can defend in any audit</span>
+              </div>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <span style={{ color: 'var(--teal)' }}>✓</span>
+                <span>HIPAA-aligned · BAA available</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: form card */}
+          <div className="signup-card">
+            <FacilityDemoForm />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Header />
+      <main style={{ paddingTop: 20 }}>
+        <FacilityDemoHero />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
