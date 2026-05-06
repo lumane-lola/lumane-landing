@@ -227,7 +227,7 @@ function SolutionSection() {
   return (
     <section style={{ padding: '32px 0 72px', background: 'var(--sand)' }}>
       <div className="wrap">
-        <div style={{ maxWidth: 946, marginBottom: -66 }}>
+        <div className="solution-intro" style={{ marginBottom: -66 }}>
           <div className="mono" style={{ color: 'var(--teal-deep)', marginBottom: 18, fontSize: 18 }}>
             How Lumane closes the gap
           </div>
@@ -246,17 +246,16 @@ function SolutionSection() {
           style={{
             width: '100%',
             maxWidth: 980,
-            margin: '0 auto 0 -34px',
+            margin: '0 auto 0 0',
             aspectRatio: '2 / 1',
             border: 'none',
             display: 'block',
             background: 'transparent',
           }}
         />
-        <p className="body" style={{
+        <p className="body solution-result" style={{
           fontSize: 18,
           marginTop: -28,
-          maxWidth: 946,
           color: 'var(--ink)',
           fontWeight: 500,
         }}>

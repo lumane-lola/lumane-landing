@@ -373,4 +373,10 @@ section.tight { padding: 80px 0; }
   /* ReadinessVisual phone + floating tag: keep phone centered,
      prevent the absolute "AUTO-PREPARED" tag from colliding —
      handled by the .ui-card absolute → relative rule above. */
+
+  /* SolutionSection: drop the desktop negative margins so the
+     iframe visual doesn't overlap the heading/intro or the
+     "result" paragraph at narrow widths. */
+  .solution-intro { margin-bottom: 24px !important; }
+  .solution-result { margin-top: 16px !important; }
 }
