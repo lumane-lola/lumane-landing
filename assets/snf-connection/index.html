@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Lumane — SNF Connection</title>
+<style>
+  :root {
+    --bg: transparent;
+    --ink: #1f2330;
+    --muted: #6b7280;
+    --line: #c7ccd4;
+    --line-strong: #9aa0aa;
+    --orange: #E8826B;
+    --orange-glow: #ff8a6f;
+    --card: #ffffff;
+    --card-border: #e6e3dd;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--bg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .frame {
+    width: 100%;
+    aspect-ratio: 1180 / 590;
+    position: relative;
+  }
+  html, body { overflow: hidden; }
+  svg.diagram {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  /* Source label cards */
+  .src-label {
+    font-size: 15px;
+    font-weight: 600;
+    fill: #2b2f3a;
+    letter-spacing: 0.1px;
+  }
+  .src-sub {
+    font-size: 11px;
+    fill: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .src-card {
+    fill: #ffffff;
+    stroke: #e6e3dd;
+    stroke-width: 1;
+    filter: url(#cardShadow);
+  }
+  .src-icon-bg {
+    fill: #f3f1ec;
+  }
+  .src-initial {
+    font-size: 14px;
+    font-weight: 700;
+    fill: #4b5160;
+    letter-spacing: 0.2px;
+  }
+
+  /* Dashed flow lines */
+  .flow {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1.6;
+    stroke-dasharray: 5 7;
+    stroke-linecap: round;
+    animation: dashDrift 14s linear infinite;
+  }
+  @keyframes dashDrift {
+    to { stroke-dashoffset: -240; }
+  }
+  .flow-out {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1.8;
+    stroke-dasharray: 6 8;
+    stroke-linecap: round;
+    animation: dashDrift 10s linear infinite;
+  }
+
+  /* Lumane card */
+  .hub-card {
+    fill: #ffffff;
+    stroke: var(--card-border);
+    stroke-width: 1;
+    filter: url(#hubShadow);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .hub-glow {
+    fill: var(--orange);
+    opacity: 0;
+    filter: url(#hubGlowFilter);
+  }
+  .hub-glow.pulse {
+    animation: hubPulse 1.1s ease-out;
+  }
+  @keyframes hubPulse {
+    0%   { opacity: 0;    transform: scale(0.96); }
+    25%  { opacity: 0.55; transform: scale(1.02); }
+    100% { opacity: 0;    transform: scale(1.08); }
+  }
+  .hub-ring {
+    fill: none;
+    stroke: var(--orange);
+    stroke-width: 1.5;
+    opacity: 0;
+  }
+  .hub-ring.pulse {
+    animation: hubRing 1.2s ease-out;
+  }
+  @keyframes hubRing {
+    0%   { opacity: 0.6; transform: scale(1); }
+    100% { opacity: 0;   transform: scale(1.18); }
+  }
+
+  /* SNF building */
+  .snf-card {
+    fill: #ffffff;
+    stroke: var(--card-border);
+    stroke-width: 1;
+    filter: url(#cardShadow);
+  }
+  .snf-glow {
+    fill: var(--orange);
+    opacity: 0;
+    filter: url(#hubGlowFilter);
+  }
+  .snf-glow.pulse {
+    animation: hubPulse 1s ease-out;
+  }
+  .snf-label {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #2b2f3a;
+    letter-spacing: 0.1px;
+  }
+  .snf-sub {
+    font-size: 10px;
+    fill: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+  .snf-icon {
+    stroke: #4b5160;
+    stroke-width: 1.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .snf-icon-fill {
+    fill: #f3f1ec;
+  }
+
+  /* Data packets */
+  .packet-core {
+    fill: var(--orange);
+  }
+  .packet-glow {
+    fill: var(--orange-glow);
+    filter: url(#packetGlow);
+  }
+
+  /* Caption */
+  .caption {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .caption .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    margin: 0 8px 1px;
+    vertical-align: middle;
+    box-shadow: 0 0 8px rgba(232,130,107,0.7);
+    animation: liveDot 1.6s ease-in-out infinite;
+  }
+  @keyframes liveDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  /* Lumane wordmark inside hub */
+  .hub-img {
+    /* placed via foreignObject for crisp PNG */
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="frame">
+    <svg class="diagram" viewBox="0 0 1180 590" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Shadows -->
+        <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1f2330" flood-opacity="0.06"/>
+        </filter>
+        <filter id="hubShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#1f2330" flood-opacity="0.10"/>
+        </filter>
+        <!-- Packet glow -->
+        <filter id="packetGlow" x="-200%" y="-200%" width="500%" height="500%">
+          <feGaussianBlur stdDeviation="3.2" />
+        </filter>
+        <filter id="hubGlowFilter" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="10" />
+        </filter>
+
+        <!-- Visible dashed paths end at hub edge -->
+        <path id="path1" d="M 270 160 C 380 178, 460 248, 545 315" />
+        <path id="path2" d="M 270 270 C 380 280, 460 302, 545 325" />
+        <path id="path3" d="M 270 380 C 380 372, 460 358, 545 335" />
+        <path id="path4" d="M 270 490 C 380 472, 460 408, 545 345" />
+        <!-- Motion paths extend just past the left edge of the Lumane card (x=585) -->
+        <path id="motion1" d="M 270 160 C 380 178, 460 248, 545 315 L 585 322" />
+        <path id="motion2" d="M 270 270 C 380 280, 460 302, 545 325 L 585 326" />
+        <path id="motion3" d="M 270 380 C 380 372, 460 358, 545 335 L 585 334" />
+        <path id="motion4" d="M 270 490 C 380 472, 460 408, 545 345 L 585 338" />
+        <!-- Visible dashed outflow line starts at hub right edge -->
+        <path id="flowOutVisible" d="M 795 330 L 1010 330" />
+        <!-- Motion path starts inside hub so packet emerges from behind it -->
+        <path id="pathOut" d="M 775 330 L 1010 330" />
+      </defs>
+
+      <!-- ===== Source rows ===== -->
+      <!-- Athena -->
+      <g class="source">
+        <rect class="src-card" x="40" y="130" width="230" height="60" rx="14" />
+        <foreignObject x="50" y="138" width="216" height="44">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:flex-start;padding-left:6px;">
+            <img src="assets/athenahealth.png" alt="athenahealth" style="max-width:200px;max-height:42px;object-fit:contain;display:block;" />
+          </div>
+        </foreignObject>
+      </g>
+      <!-- Cerner -->
+      <g class="source">
+        <rect class="src-card" x="40" y="240" width="230" height="60" rx="14" />
+        <foreignObject x="56" y="252" width="200" height="36">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:flex-start;padding-left:6px;">
+            <img src="assets/cerner.png" alt="Cerner" style="max-width:170px;max-height:30px;object-fit:contain;display:block;" />
+          </div>
+        </foreignObject>
+      </g>
+      <!-- Epic -->
+      <g class="source">
+        <rect class="src-card" x="40" y="350" width="230" height="60" rx="14" />
+        <foreignObject x="56" y="362" width="200" height="36">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:flex-start;padding-left:10px;">
+            <img src="assets/epic.png" alt="Epic" style="max-width:110px;max-height:32px;object-fit:contain;display:block;" />
+          </div>
+        </foreignObject>
+      </g>
+      <!-- Other EHRs -->
+      <g class="source">
+        <rect class="src-card" x="40" y="460" width="230" height="60" rx="14" />
+        <rect class="src-icon-bg" x="52" y="474" width="32" height="32" rx="9" />
+        <!-- generic db/server icon -->
+        <g transform="translate(57 479)" stroke="#4b5160" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="11" cy="4" rx="10" ry="3.4" />
+          <path d="M 1 4 V 11.5 C 1 13.4, 5.5 15, 11 15 C 16.5 15, 21 13.4, 21 11.5 V 4" />
+          <path d="M 1 11.5 V 19 C 1 20.9, 5.5 22.5, 11 22.5 C 16.5 22.5, 21 20.9, 21 19 V 11.5" />
+        </g>
+        <text class="src-label" x="98" y="496" style="font-size:18px;font-weight:600;">Other EHRs</text>
+      </g>
+
+      <!-- ===== Flow lines (visible dashed paths) ===== -->
+      <use href="#path1" class="flow" />
+      <use href="#path2" class="flow" />
+      <use href="#path3" class="flow" />
+      <use href="#path4" class="flow" />
+
+      <!-- ===== Inflow packets (rendered behind hub) ===== -->
+      <g class="packet">
+        <circle class="packet-glow" r="9" />
+        <circle class="packet-core" r="3.2" />
+        <animateMotion dur="4s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.55;1" keySplines="0.45 0 0.55 1; 0 0 1 1" keyPoints="0;1;1">
+          <mpath href="#motion1"/>
+        </animateMotion>
+      </g>
+      <g class="packet">
+        <circle class="packet-glow" r="9" />
+        <circle class="packet-core" r="3.2" />
+        <animateMotion dur="4s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.55;1" keySplines="0.45 0 0.55 1; 0 0 1 1" keyPoints="0;1;1">
+          <mpath href="#motion2"/>
+        </animateMotion>
+      </g>
+      <g class="packet">
+        <circle class="packet-glow" r="9" />
+        <circle class="packet-core" r="3.2" />
+        <animateMotion dur="4s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.55;1" keySplines="0.45 0 0.55 1; 0 0 1 1" keyPoints="0;1;1">
+          <mpath href="#motion3"/>
+        </animateMotion>
+      </g>
+      <g class="packet">
+        <circle class="packet-glow" r="9" />
+        <circle class="packet-core" r="3.2" />
+        <animateMotion dur="4s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.55;1" keySplines="0.45 0 0.55 1; 0 0 1 1" keyPoints="0;1;1">
+          <mpath href="#motion4"/>
+        </animateMotion>
+      </g>
+
+      <!-- ===== Outflow packet (rendered behind hub so it emerges from card) ===== -->
+      <g class="packet-out" opacity="0">
+        <set attributeName="opacity" to="1" begin="2.3s" />
+        <circle class="packet-glow" r="9">
+          <animate attributeName="opacity" dur="4s" begin="2.3s" repeatCount="indefinite"
+                   keyTimes="0;0.39;0.4;1" values="1;1;0;0" />
+        </circle>
+        <circle class="packet-core" r="3.4">
+          <animate attributeName="opacity" dur="4s" begin="2.3s" repeatCount="indefinite"
+                   keyTimes="0;0.39;0.4;1" values="1;1;0;0" />
+        </circle>
+        <animateMotion dur="4s" begin="2.3s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.4;1" keySplines="0.4 0 0.2 1; 0 0 1 1" keyPoints="0;1;1">
+          <mpath href="#pathOut"/>
+        </animateMotion>
+      </g>
+
+      <!-- ===== Lumane Hub ===== -->
+      <g id="hub">
+        <!-- Card -->
+        <rect id="hubCard" class="hub-card" x="565" y="280" width="230" height="100" rx="22" />
+        <!-- Logo via foreignObject for the PNG -->
+        <foreignObject x="585" y="298" width="190" height="64">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/lumane-logo.png" alt="Lumane" style="max-width:100%;max-height:100%;object-fit:contain;display:block;" />
+          </div>
+        </foreignObject>
+      </g>
+
+      <!-- ===== Outflow line ===== -->
+      <use href="#flowOutVisible" class="flow-out" />
+      <!-- Arrowhead -->
+      <g transform="translate(1010 330)">
+        <path d="M -10 -6 L 0 0 L -10 6" fill="none" stroke="var(--line-strong)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <!-- ===== SNF destination ===== -->
+      <g id="snf">
+        <rect class="snf-card" x="1028" y="278" width="100" height="104" rx="14" />
+        <!-- Building icon: simple hospital silhouette -->
+        <g transform="translate(1043 295)">
+          <!-- base building -->
+          <rect class="snf-icon-fill" x="0" y="14" width="70" height="56" rx="3" />
+          <rect class="snf-icon" x="0" y="14" width="70" height="56" rx="3" />
+          <!-- roof step -->
+          <rect class="snf-icon-fill" x="14" y="0" width="42" height="18" rx="2" />
+          <rect class="snf-icon" x="14" y="0" width="42" height="18" rx="2" />
+          <!-- cross -->
+          <line class="snf-icon" x1="35" y1="4" x2="35" y2="14" />
+          <line class="snf-icon" x1="30" y1="9" x2="40" y2="9" />
+          <!-- windows grid -->
+          <g stroke="#9aa0aa" stroke-width="1" fill="none">
+            <rect x="8"  y="24" width="10" height="10" />
+            <rect x="22" y="24" width="10" height="10" />
+            <rect x="38" y="24" width="10" height="10" />
+            <rect x="52" y="24" width="10" height="10" />
+            <rect x="8"  y="40" width="10" height="10" />
+            <rect x="52" y="40" width="10" height="10" />
+          </g>
+          <!-- door -->
+          <rect class="snf-icon" x="28" y="50" width="14" height="20" rx="1" />
+        </g>
+        <text class="snf-label" x="1078" y="412" text-anchor="middle">Your SNF</text>
+      </g>
+
+      <!-- ===== Data packets ===== -->
+      <!-- (outflow packet moved above, behind the hub) -->
+    </svg>
+  </div>
+</div>
+
+<script>
+  // Pulse effects on Lumane card and SNF removed per request — packets still flow.
+</script>
+</body>
+</html>

@@ -139,7 +139,6 @@ function Footer() {
   const cols = [
     { title: 'Company', links: [
       { label: 'About', href: '/about.html' },
-      { label: 'For facilities', href: '/for-facilities.html' },
     ]},
     { title: 'Legal', links: [
       { label: 'Privacy', href: '/Lumane_Privacy_Policy.pdf', target: '_blank' },

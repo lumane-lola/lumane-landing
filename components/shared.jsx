@@ -35,8 +35,7 @@ function Header() {
         <Brand />
         <div className="nav-links">
           <a href="/about.html">About</a>
-          <a href="/for-facilities.html">For facilities</a>
-          <a href="/signup.html" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: 13, color: '#ffffff' }}>
+          <a href="/facility-demo.html" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: 13, color: '#ffffff' }}>
             Get started
           </a>
         </div>
