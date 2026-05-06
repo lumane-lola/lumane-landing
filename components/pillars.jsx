@@ -77,7 +77,7 @@ function UnificationVisual() {
               </div>
               <div style={{
                 width: 8, height: 8, borderRadius: '50%',
-                background: s.status === 'synced' ? 'var(--teal)' : 'var(--tan)',
+                background: s.status === 'synced' ? 'var(--green)' : 'var(--tan)',
                 boxShadow: s.status === 'synced' ? '0 0 0 4px rgba(50, 127, 119, 0.12)' : 'none',
               }}></div>
             </div>
@@ -187,14 +187,14 @@ function ReadinessVisual() {
                 </div>
                 <div style={{
                   width: 7, height: 7, borderRadius: '50%',
-                  background: m.active ? 'var(--teal)' : 'var(--tan)',
+                  background: m.active ? 'var(--green)' : 'var(--tan)',
                   boxShadow: m.active ? '0 0 0 3px rgba(50, 127, 119, 0.12)' : 'none',
                 }}></div>
               </div>
             ))}
           </div>
 
-          <div style={{ marginTop: 12 }}>
+          <div style={{ marginTop: 4 }}>
             <div className="mono" style={{ fontSize: 8.5, color: 'var(--muted)' }}>RECENT LABS</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginTop: 6 }}>
               <div style={{ padding: 10, background: 'var(--sand)', borderRadius: 6, border: '1px solid var(--tan)' }}>
@@ -214,8 +214,8 @@ function ReadinessVisual() {
             </div>
           </div>
 
-          <div style={{ marginTop: 12, padding: 10, background: 'var(--teal-soft)', borderRadius: 8 }}>
-            <div className="mono" style={{ fontSize: 8.5, color: 'var(--teal-deep)' }}>QUESTIONS TO ASK</div>
+          <div style={{ marginTop: 8, padding: 10, background: 'var(--green-soft)', borderRadius: 8 }}>
+            <div className="mono" style={{ fontSize: 8.5, color: 'var(--green-deep)' }}>QUESTIONS TO ASK</div>
             <div style={{ fontSize: 10.5, marginTop: 6, color: 'var(--ink)', lineHeight: 1.5 }}>
               · A1C trend since January — adjust Metformin?<br/>
               · New fatigue, ~3 weeks. Related to Lisinopril change?
@@ -223,12 +223,12 @@ function ReadinessVisual() {
           </div>
 
           <div style={{
-            position: 'absolute', bottom: 18, left: 18, right: 18,
+            marginTop: 16,
             display: 'flex', gap: 8,
           }}>
             <button style={{
               flex: 1, padding: '10px', borderRadius: 999, border: 'none',
-              background: 'var(--teal)', color: 'var(--on-dark)',
+              background: 'var(--green)', color: 'var(--on-dark)',
               fontSize: 11.5, fontWeight: 500,
             }}>Email to nurse</button>
             <button style={{

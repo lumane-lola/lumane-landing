@@ -22,8 +22,7 @@ function Photo({ tone = 'warm-1', label, shot, src, className = '', style }) {
 function Brand() {
   return (
     <a className="brand" href="/" aria-label="Lumane home">
-      <span className="brand-dot"></span>
-      Lumane
+      <img src="/LumaneLogov0.1.png" alt="Lumane" className="brand-logo" />
     </a>
   );
 }
@@ -90,7 +89,7 @@ function MedListFragment() {
           <div style={{
             fontSize: 10, fontFamily: 'JetBrains Mono, monospace',
             letterSpacing: '0.1em', textTransform: 'uppercase',
-            color: m.state === 'flag' ? 'var(--red)' : 'var(--teal)',
+            color: m.state === 'flag' ? 'var(--red)' : 'var(--green)',
             marginLeft: 12, paddingTop: 2,
           }}>
             {m.state === 'flag' ? 'mismatch' : 'active'}
@@ -113,7 +112,7 @@ function VisitPrepCard() {
         </div>
         <div style={{
           fontSize: 10, fontFamily: 'JetBrains Mono, monospace',
-          background: 'var(--teal-soft)', color: 'var(--teal-deep)',
+          background: 'var(--green-soft)', color: 'var(--green-deep)',
           padding: '4px 8px', borderRadius: 4, letterSpacing: '0.08em',
         }}>READY</div>
       </div>
@@ -164,7 +163,7 @@ function ConnectedProvidersFragment() {
             </div>
             <div style={{
               width: 8, height: 8, borderRadius: '50%',
-              background: s.status === 'synced' ? 'var(--teal)' : 'var(--tan)',
+              background: s.status === 'synced' ? 'var(--green)' : 'var(--tan)',
               boxShadow: s.status === 'synced' ? '0 0 0 4px rgba(50, 127, 119, 0.12)' : 'none',
             }}></div>
           </div>

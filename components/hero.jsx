@@ -77,7 +77,7 @@ function Hero() {
                 position: 'absolute', right: -36, bottom: 48,
                 padding: '12px 14px', width: 240,
               }}>
-                <div className="mono" style={{ fontSize: 9.5, color: 'var(--teal-deep)' }}>NOW SYNCED</div>
+                <div className="mono" style={{ fontSize: 9.5, color: 'var(--green-deep)' }}>NOW SYNCED</div>
                 <div style={{ fontFamily: 'Lora, serif', fontSize: 14, fontWeight: 500, marginTop: 4, lineHeight: 1.3 }}>
                   Mercy General · 14 records
                 </div>

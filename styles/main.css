@@ -14,6 +14,9 @@
   --teal: #327F77;
   --teal-deep: #285F59;
   --teal-soft: #d8e8e6;
+  --green: #327F77;
+  --green-deep: #285F59;
+  --green-soft: #d8e8e6;
   --red: #DC2828;
   --on-dark: #FAFAFA;
 }
@@ -84,9 +87,10 @@ a.btn-primary, a.btn-primary:visited { color: #ffffff; }
   max-width: 1200px; margin: 0 auto; padding: 18px 32px;
 }
 .brand {
-  font-family: 'Lora', serif; font-size: 22px; font-weight: 500;
-  letter-spacing: -0.025em; color: var(--ink);
-  display: flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center;
+}
+.brand-logo {
+  height: 48px; width: auto; display: block;
 }
 .brand-dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -234,7 +238,7 @@ section.tight { padding: 80px 0; }
      .brand under .nav's existing justify-content: space-between. */
   .nav-links { display: contents; font-size: 11.5px; }
   .nav-links a.btn { padding: 6px 11px; font-size: 11.5px; }
-  .brand { font-size: 18px; }
+  .brand-logo { height: 36px; }
 
   /* Section spacing — overrides inline 110/120/140px paddings */
   section[style] { padding-top: 56px !important; padding-bottom: 56px !important; }
@@ -339,6 +343,13 @@ section.tight { padding: 80px 0; }
     padding: 24px 22px !important;
   }
 
+  /* Facilities cinematic hero: shrink the overlay padding on mobile so
+     copy doesn't get squeezed against the photo edges. */
+  [style*="padding: 64px 72px"] {
+    padding: 28px 22px !important;
+    align-items: flex-end !important;
+  }
+
   /* Footer: keep the desktop 2-column layout on mobile (Lumane + ©
      on the left, Company + Legal columns on the right). Just shrink
      gaps, fonts, and column min-widths so it fits horizontally. */
@@ -354,7 +365,7 @@ section.tight { padding: 80px 0; }
   .footer [style*="min-width: 120"] {
     min-width: 0 !important;
   }
-  .footer .brand { font-size: 16px; }
+  .footer .brand-logo { height: 32px; }
   .footer .mono { font-size: 9.5px; }
   .footer ul li a { font-size: 12px; white-space: nowrap; }
   .footer [style*="font-size: 12"] { font-size: 10.5px !important; }
