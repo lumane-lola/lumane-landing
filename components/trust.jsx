@@ -12,7 +12,7 @@ function TrustSection() {
       <div className="wrap">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 80, alignItems: 'start' }}>
           <div>
-            <div className="mono" style={{ marginBottom: 22 }}>◦ &nbsp; Trust</div>
+            <div className="mono" style={{ marginBottom: 22, fontSize: 18 }}>Trust</div>
             <h2 className="h-1">Health records are personal. We treat them that way.</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
