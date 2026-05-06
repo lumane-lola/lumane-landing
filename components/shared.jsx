@@ -22,7 +22,7 @@ function Photo({ tone = 'warm-1', label, shot, src, className = '', style }) {
 function Brand() {
   return (
     <a className="brand" href="/" aria-label="Lumane home">
-      <img src="/LumaneLogov0.1.png" alt="Lumane" className="brand-logo" />
+      <img src="/LumaneLogov0.png" alt="Lumane" className="brand-logo" />
     </a>
   );
 }

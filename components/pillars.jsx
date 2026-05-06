@@ -214,7 +214,7 @@ function ReadinessVisual() {
             </div>
           </div>
 
-          <div style={{ marginTop: 8, padding: 10, background: 'var(--green-soft)', borderRadius: 8 }}>
+          <div style={{ marginTop: 8, padding: 10, background: 'var(--sand)', borderRadius: 8, border: '1px solid var(--tan)' }}>
             <div className="mono" style={{ fontSize: 8.5, color: 'var(--green-deep)' }}>QUESTIONS TO ASK</div>
             <div style={{ fontSize: 10.5, marginTop: 6, color: 'var(--ink)', lineHeight: 1.5 }}>
               · A1C trend since January — adjust Metformin?<br/>
@@ -228,7 +228,7 @@ function ReadinessVisual() {
           }}>
             <button style={{
               flex: 1, padding: '10px', borderRadius: 999, border: 'none',
-              background: 'var(--green)', color: 'var(--on-dark)',
+              background: 'var(--teal)', color: 'var(--on-dark)',
               fontSize: 11.5, fontWeight: 500,
             }}>Email to nurse</button>
             <button style={{
@@ -244,7 +244,7 @@ function ReadinessVisual() {
       <div className="ui-card auto-prepared-floating" style={{
         position: 'absolute', right: '1%', top: 60, padding: '12px 14px', width: 200, zIndex: 3,
       }}>
-        <div className="mono" style={{ fontSize: 9, color: 'var(--teal-deep)' }}>AUTO-PREPARED</div>
+        <div className="mono" style={{ fontSize: 9, color: 'var(--green-deep)' }}>AUTO-PREPARED</div>
         <div style={{ fontSize: 12.5, marginTop: 6, color: 'var(--ink)', lineHeight: 1.4 }}>
           Generated 24 hours before each appointment.
         </div>
