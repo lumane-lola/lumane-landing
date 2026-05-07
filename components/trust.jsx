@@ -3,7 +3,7 @@
 // ─── Trust Section ────────────────────────────────────────
 function TrustSection() {
   const points = [
-    { k: <>Patient consent at <br className="trust-br" />the core</>, v: 'The patient gives informed consent before any record is pulled.' },
+    { k: <>Patient consent at <br className="trust-br" />the core</>, v: 'The patient/POA gives informed consent before any record is pulled.' },
     { k: 'No record sharing without you', v: 'We never share data without your consent.' },
     { k: 'Built on the substrate hospitals trust', v: 'HL7 FHIR R4, USCDI v3, HIPAA. The same data standards your hospital already uses.' },
   ];
