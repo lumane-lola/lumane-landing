@@ -141,7 +141,7 @@ function Footer() {
       { label: 'About', href: '/about.html' },
     ]},
     { title: 'Legal', links: [
-      { label: 'Privacy', href: '/Lumane_Privacy_Policy.pdf', target: '_blank' },
+      { label: 'Privacy', href: '/privacy' },
       { label: 'Terms', href: '/Lumane_Terms_of_Service.pdf', target: '_blank' },
     ]},
   ];

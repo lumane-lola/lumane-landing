@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Lumane Health's Privacy Notice explains how we access, collect, store, use, and share your personal information when you use our Services.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>Privacy Policy — Lumane Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/main.css">
+<style>
+  .legal {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+  }
+  .legal .eyebrow {
+    color: var(--teal-deep);
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .legal h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(34px, 4.2vw, 52px);
+    line-height: 1.08;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  .legal .updated {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+  .legal h2 {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 56px 0 16px;
+    scroll-margin-top: 24px;
+  }
+  .legal h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 32px 0 10px;
+    color: var(--slate);
+  }
+  .legal p, .legal li { color: var(--slate); }
+  .legal a { color: var(--green-deep); text-decoration: underline; text-underline-offset: 2px; }
+  .legal a:hover { color: var(--teal-deep); }
+  .legal ul { padding-left: 22px; margin: 12px 0 18px; }
+  .legal li { margin-bottom: 8px; }
+  .legal .in-short {
+    background: var(--sand);
+    border-left: 3px solid var(--green);
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin: 16px 0 20px;
+    font-style: italic;
+    color: var(--slate);
+  }
+  .legal .summary {
+    background: var(--card);
+    border: 1px solid var(--tan);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 32px 0 48px;
+  }
+  .legal .summary h2 { margin-top: 0; }
+  .legal nav.toc {
+    background: var(--beige);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 32px 0 48px;
+  }
+  .legal nav.toc h2 {
+    margin: 0 0 14px;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--teal-deep);
+  }
+  .legal nav.toc ol { padding-left: 22px; margin: 0; }
+  .legal nav.toc li { margin-bottom: 6px; }
+  .legal nav.toc a { color: var(--ink); text-decoration: none; }
+  .legal nav.toc a:hover { text-decoration: underline; color: var(--teal-deep); }
+  .legal .contact-block {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--tan);
+    color: var(--muted);
+    font-size: 15px;
+  }
+  @media (max-width: 600px) {
+    .legal { padding: 40px 22px 72px; font-size: 16px; }
+    .legal .summary, .legal nav.toc { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="/components/shared.jsx"></script>
+<script type="text/babel" src="/components/trust.jsx"></script>
+
+<script type="text/babel">
+function PrivacyContent() {
+  return (
+    <article className="legal">
+      <div className="mono eyebrow">Legal</div>
+      <h1>Privacy Notice</h1>
+      <p className="updated">Last updated: 10 May 2026</p>
+
+      <p>This Privacy Notice for Lumane Health, Inc. ("we," "us," or "our"), describes how and why we might access, collect, store, use, and/or share ("process") your personal information when you use our services ("Services").</p>
+
+      <p>Questions or concerns? Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services.</p>
+
+      <section className="summary" aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Summary of Key Points</h2>
+        <p>This summary provides key points from our Privacy Notice, but you can find out more details about any of these topics by using our table of contents below to find the section you are looking for.</p>
+
+        <h3>What personal information do we process?</h3>
+        <p>When you visit, use, or navigate our Services, we may process personal information depending on how you interact with us and the Services, the choices you make, and the products and features you use.</p>
+
+        <h3>Do we process any sensitive personal information?</h3>
+        <p>Some of the information may be considered "special" or "sensitive" in certain jurisdictions, for example your racial or ethnic origins, sexual orientation, and religious beliefs. We do not process sensitive personal information.</p>
+
+        <h3>Do we collect any information from third parties?</h3>
+        <p>We may collect information from public databases, marketing partners, social media platforms, and other outside sources.</p>
+
+        <h3>How do we process your information?</h3>
+        <p>We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so.</p>
+
+        <h3>In what situations and with which parties do we share personal information?</h3>
+        <p>We may share information in specific situations and with specific third parties.</p>
+
+        <h3>What are your rights?</h3>
+        <p>Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information.</p>
+
+        <h3>How do you exercise your rights?</h3>
+        <p>The easiest way to exercise your rights is by submitting a data subject access request, or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.</p>
+      </section>
+
+      <nav className="toc" aria-label="Table of contents">
+        <h2>Table of Contents</h2>
+        <ol>
+          <li><a href="#s1">What information do we collect?</a></li>
+          <li><a href="#s2">How do we process your information?</a></li>
+          <li><a href="#s3">When and with whom do we share your personal information?</a></li>
+          <li><a href="#s4">Do we use cookies and other tracking technologies?</a></li>
+          <li><a href="#s5">How do we handle your social logins?</a></li>
+          <li><a href="#s6">Is your information transferred internationally?</a></li>
+          <li><a href="#s7">How long do we keep your information?</a></li>
+          <li><a href="#s8">Do we collect information from minors?</a></li>
+          <li><a href="#s9">What are your privacy rights?</a></li>
+          <li><a href="#s10">Controls for do-not-track features</a></li>
+          <li><a href="#s11">Do we make updates to this notice?</a></li>
+          <li><a href="#s12">How can you contact us about this notice?</a></li>
+          <li><a href="#s13">How can you review, update, or delete the data we collect from you?</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="s1">1. What information do we collect?</h2>
+      <h3>Personal information you disclose to us</h3>
+      <div className="in-short"><strong>In Short:</strong> We collect personal information that you provide to us.</div>
+      <p>We collect personal information that you voluntarily provide to us when you register on the Services, express an interest in obtaining information about us or our products and Services, when you participate in activities on the Services, or otherwise when you contact us.</p>
+      <p><strong>Sensitive Information.</strong> We do not process sensitive information.</p>
+      <p>All personal information that you provide to us must be true, complete, and accurate, and you must notify us of any changes to such personal information.</p>
+
+      <h3>Information automatically collected</h3>
+      <div className="in-short"><strong>In Short:</strong> Some information — such as your Internet Protocol (IP) address and/or browser and device characteristics — is collected automatically when you visit our Services.</div>
+      <p>We automatically collect certain information when you visit, use, or navigate the Services. This information does not reveal your specific identity (like your name or contact information) but may include device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, information about how and when you use our Services, and other technical information. This information is primarily needed to maintain the security and operation of our Services, and for our internal analytics and reporting purposes.</p>
+      <p>Like many businesses, we also collect information through cookies and similar technologies.</p>
+
+      <h2 id="s2">2. How do we process your information?</h2>
+      <div className="in-short"><strong>In Short:</strong> We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent.</div>
+      <p>We process your personal information for a variety of reasons, depending on how you interact with our Services.</p>
+
+      <h2 id="s3">3. When and with whom do we share your personal information?</h2>
+      <div className="in-short"><strong>In Short:</strong> We may share information in specific situations described in this section and/or with the following third parties.</div>
+      <p>We may need to share your personal information in the following situations:</p>
+      <ul>
+        <li><strong>Business Transfers.</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</li>
+        <li><strong>Affiliates.</strong> We may share your information with our affiliates, in which case we will require those affiliates to honor this Privacy Notice. Affiliates include our parent company and any subsidiaries, joint venture partners, or other companies that we control or that are under common control with us.</li>
+        <li><strong>Business Partners.</strong> We may share your information with our business partners to offer you certain products, services, or promotions.</li>
+      </ul>
+
+      <h2 id="s4">4. Do we use cookies and other tracking technologies?</h2>
+      <div className="in-short"><strong>In Short:</strong> We may use cookies and other tracking technologies to collect and store your information.</div>
+      <p>We may use cookies and similar tracking technologies (like web beacons and pixels) to gather information when you interact with our Services. Some online tracking technologies help us maintain the security of our Services, prevent crashes, fix bugs, save your preferences, and assist with basic site functions.</p>
+      <p>We also permit third parties and service providers to use online tracking technologies on our Services for analytics and advertising, including to help manage and display advertisements, to tailor advertisements to your interests, or to send abandoned shopping cart reminders (depending on your communication preferences). The third parties and service providers use their technology to provide advertising about products and services tailored to your interests which may appear either on our Services or on other websites.</p>
+      <p>Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Notice.</p>
+
+      <h2 id="s5">5. How do we handle your social logins?</h2>
+      <div className="in-short"><strong>In Short:</strong> If you choose to register or log in to our Services using a social media account, we may have access to certain information about you.</div>
+      <p>Our Services offer you the ability to register and log in using your third-party social media account details (like your Facebook or X logins). Where you choose to do this, we will receive certain profile information about you from your social media provider. The profile information we receive may vary depending on the social media provider concerned, but will often include your name, email address, friends list, and profile picture, as well as other information you choose to make public on such a social media platform.</p>
+      <p>We will use the information we receive only for the purposes that are described in this Privacy Notice or that are otherwise made clear to you on the relevant Services. Please note that we do not control, and are not responsible for, other uses of your personal information by your third-party social media provider. We recommend that you review their privacy notice to understand how they collect, use, and share your personal information, and how you can set your privacy preferences on their sites and apps.</p>
+
+      <h2 id="s6">6. Is your information transferred internationally?</h2>
+      <div className="in-short"><strong>In Short:</strong> We may transfer, store, and process your information in countries other than your own.</div>
+      <p>Our servers are located in the United States. Regardless of your location, please be aware that your information may be transferred to, stored by, and processed by us in our facilities and in the facilities of the third parties with whom we may share your personal information (see "When and with whom do we share your personal information?" above), including facilities in the United States and other countries.</p>
+      <p>If you are a resident in the European Economic Area (EEA), United Kingdom (UK), or Switzerland, then these countries may not necessarily have data protection laws or other similar laws as comprehensive as those in your country. However, we will take all necessary measures to protect your personal information in accordance with this Privacy Notice and applicable law.</p>
+
+      <h2 id="s7">7. How long do we keep your information?</h2>
+      <div className="in-short"><strong>In Short:</strong> We keep your information for as long as necessary to fulfill the purposes outlined in this Privacy Notice unless otherwise required by law.</div>
+      <p>We will only keep your personal information for as long as it is necessary for the purposes set out in this Privacy Notice, unless a longer retention period is required or permitted by law (such as tax, accounting, or other legal requirements).</p>
+      <p>When we have no ongoing legitimate business need to process your personal information, we will either delete or anonymize such information, or, if this is not possible (for example, because your personal information has been stored in backup archives), then we will securely store your personal information and isolate it from any further processing until deletion is possible.</p>
+
+      <h2 id="s8">8. Do we collect information from minors?</h2>
+      <div className="in-short"><strong>In Short:</strong> We do not knowingly collect data from or market to children under 18 years of age.</div>
+      <p>We do not knowingly collect, solicit data from, or market to children under 18 years of age, nor do we knowingly sell such personal information. By using the Services, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent's use of the Services. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children under age 18, please contact us at <a href="mailto:justin@lumane.health">justin@lumane.health</a>.</p>
+
+      <h2 id="s9">9. What are your privacy rights?</h2>
+      <div className="in-short"><strong>In Short:</strong> You may review, change, or terminate your account at any time, depending on your country, province, or state of residence.</div>
+      <p><strong>Withdrawing your consent:</strong> If we are relying on your consent to process your personal information, which may be express and/or implied consent depending on the applicable law, you have the right to withdraw your consent at any time. You can withdraw your consent at any time by contacting us by using the contact details provided in the section "How can you contact us about this notice?" below.</p>
+      <p>However, please note that this will not affect the lawfulness of the processing before its withdrawal nor, when applicable law allows, will it affect the processing of your personal information conducted in reliance on lawful processing grounds other than consent.</p>
+      <h3>Account Information</h3>
+      <p>If you would at any time like to review or change the information in your account or terminate your account, you can contact us using the details below.</p>
+      <p>Upon your request to terminate your account, we will deactivate or delete your account and information from our active databases. However, we may retain some information in our files to prevent fraud, troubleshoot problems, assist with any investigations, enforce our legal terms and/or comply with applicable legal requirements.</p>
+
+      <h2 id="s10">10. Controls for do-not-track features</h2>
+      <p>Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track ("DNT") feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected. At this stage, no uniform technology standard for recognizing and implementing DNT signals has been finalized. As such, we do not currently respond to DNT browser signals or any other mechanism that automatically communicates your choice not to be tracked online. If a standard for online tracking is adopted that we must follow in the future, we will inform you about that practice in a revised version of this Privacy Notice.</p>
+
+      <h2 id="s11">11. Do we make updates to this notice?</h2>
+      <div className="in-short"><strong>In Short:</strong> Yes, we will update this notice as necessary to stay compliant with relevant laws.</div>
+      <p>We may update this Privacy Notice from time to time. The updated version will be indicated by an updated "Revised" date at the top of this Privacy Notice. If we make material changes to this Privacy Notice, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification. We encourage you to review this Privacy Notice frequently to be informed of how we are protecting your information.</p>
+
+      <h2 id="s12">12. How can you contact us about this notice?</h2>
+      <p>If you have questions or comments about this notice, you may email us at <a href="mailto:privacy@lumane.health">privacy@lumane.health</a> or contact us by post at:</p>
+      <p>
+        Lumane Health, Inc.<br />
+        502 Calabria Place<br />
+        San Jose, California 95128
+      </p>
+
+      <h2 id="s13">13. How can you review, update, or delete the data we collect from you?</h2>
+      <p>Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, details about how we have processed it, correct inaccuracies, or delete your personal information. You may also have the right to withdraw your consent to our processing of your personal information. These rights may be limited in some circumstances by applicable law. To request to review, update, or delete your personal information, please fill out and submit a data subject access request.</p>
+
+      <div className="contact-block">
+        Questions? Contact <a href="mailto:privacy@lumane.health">privacy@lumane.health</a> · <a href="https://app.lumane.health">Return to app.lumane.health</a>
+      </div>
+    </article>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Header />
+      <main>
+        <PrivacyContent />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
