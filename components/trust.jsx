@@ -142,7 +142,7 @@ function Footer() {
     ]},
     { title: 'Legal', links: [
       { label: 'Privacy', href: '/privacy' },
-      { label: 'Terms', href: '/Lumane_Terms_of_Service.pdf', target: '_blank' },
+      { label: 'Terms', href: '/terms' },
     ]},
   ];
   return (
