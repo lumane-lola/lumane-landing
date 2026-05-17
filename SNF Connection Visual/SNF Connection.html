@@ -5,7 +5,7 @@
 <title>Lumane — SNF Connection</title>
 <style>
   :root {
-    --bg: transparent;
+    --bg: #fbfaf8;
     --ink: #1f2330;
     --muted: #6b7280;
     --line: #c7ccd4;
@@ -26,18 +26,18 @@
     -webkit-font-smoothing: antialiased;
   }
   .stage {
-    min-height: 100%;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 32px;
   }
   .frame {
-    width: 100%;
-    aspect-ratio: 1180 / 590;
+    width: min(1180px, 100%);
+    aspect-ratio: 16 / 9;
+    max-height: calc(100vh - 64px);
     position: relative;
   }
-  html, body { overflow: hidden; }
   svg.diagram {
     width: 100%;
     height: 100%;
@@ -216,7 +216,7 @@
 <body>
 <div class="stage">
   <div class="frame">
-    <svg class="diagram" viewBox="0 0 1180 590" xmlns="http://www.w3.org/2000/svg">
+    <svg class="diagram" viewBox="0 0 1180 660" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <!-- Shadows -->
         <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -234,15 +234,15 @@
         </filter>
 
         <!-- Visible dashed paths end at hub edge -->
-        <path id="path1" d="M 270 160 C 380 178, 460 248, 545 315" />
-        <path id="path2" d="M 270 270 C 380 280, 460 302, 545 325" />
-        <path id="path3" d="M 270 380 C 380 372, 460 358, 545 335" />
-        <path id="path4" d="M 270 490 C 380 472, 460 408, 545 345" />
+        <path id="path1" d="M 270 130 C 380 150, 460 240, 545 312" />
+        <path id="path2" d="M 270 263 C 380 275, 460 295, 545 322" />
+        <path id="path3" d="M 270 397 C 380 385, 460 365, 545 338" />
+        <path id="path4" d="M 270 530 C 380 510, 460 410, 545 348" />
         <!-- Motion paths extend just past the left edge of the Lumane card (x=585) -->
-        <path id="motion1" d="M 270 160 C 380 178, 460 248, 545 315 L 585 322" />
-        <path id="motion2" d="M 270 270 C 380 280, 460 302, 545 325 L 585 326" />
-        <path id="motion3" d="M 270 380 C 380 372, 460 358, 545 335 L 585 334" />
-        <path id="motion4" d="M 270 490 C 380 472, 460 408, 545 345 L 585 338" />
+        <path id="motion1" d="M 270 130 C 380 150, 460 240, 545 312 L 585 322" />
+        <path id="motion2" d="M 270 263 C 380 275, 460 295, 545 322 L 585 326" />
+        <path id="motion3" d="M 270 397 C 380 385, 460 365, 545 338 L 585 334" />
+        <path id="motion4" d="M 270 530 C 380 510, 460 410, 545 348 L 585 338" />
         <!-- Visible dashed outflow line starts at hub right edge -->
         <path id="flowOutVisible" d="M 795 330 L 1010 330" />
         <!-- Motion path starts inside hub so packet emerges from behind it -->
@@ -252,8 +252,8 @@
       <!-- ===== Source rows ===== -->
       <!-- Athena -->
       <g class="source">
-        <rect class="src-card" x="40" y="130" width="230" height="60" rx="14" />
-        <foreignObject x="50" y="138" width="216" height="44">
+        <rect class="src-card" x="40" y="100" width="230" height="60" rx="14" />
+        <foreignObject x="50" y="108" width="216" height="44">
           <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:flex-start;padding-left:6px;">
             <img src="assets/athenahealth.png" alt="athenahealth" style="max-width:200px;max-height:42px;object-fit:contain;display:block;" />
           </div>
@@ -261,8 +261,8 @@
       </g>
       <!-- Cerner -->
       <g class="source">
-        <rect class="src-card" x="40" y="240" width="230" height="60" rx="14" />
-        <foreignObject x="56" y="252" width="200" height="36">
+        <rect class="src-card" x="40" y="233" width="230" height="60" rx="14" />
+        <foreignObject x="56" y="245" width="200" height="36">
           <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:flex-start;padding-left:6px;">
             <img src="assets/cerner.png" alt="Cerner" style="max-width:170px;max-height:30px;object-fit:contain;display:block;" />
           </div>
@@ -270,8 +270,8 @@
       </g>
       <!-- Epic -->
       <g class="source">
-        <rect class="src-card" x="40" y="350" width="230" height="60" rx="14" />
-        <foreignObject x="56" y="362" width="200" height="36">
+        <rect class="src-card" x="40" y="367" width="230" height="60" rx="14" />
+        <foreignObject x="56" y="379" width="200" height="36">
           <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:flex-start;padding-left:10px;">
             <img src="assets/epic.png" alt="Epic" style="max-width:110px;max-height:32px;object-fit:contain;display:block;" />
           </div>
@@ -279,15 +279,15 @@
       </g>
       <!-- Other EHRs -->
       <g class="source">
-        <rect class="src-card" x="40" y="460" width="230" height="60" rx="14" />
-        <rect class="src-icon-bg" x="52" y="474" width="32" height="32" rx="9" />
+        <rect class="src-card" x="40" y="500" width="230" height="60" rx="14" />
+        <rect class="src-icon-bg" x="52" y="514" width="32" height="32" rx="9" />
         <!-- generic db/server icon -->
-        <g transform="translate(57 479)" stroke="#4b5160" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <g transform="translate(57 519)" stroke="#4b5160" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <ellipse cx="11" cy="4" rx="10" ry="3.4" />
           <path d="M 1 4 V 11.5 C 1 13.4, 5.5 15, 11 15 C 16.5 15, 21 13.4, 21 11.5 V 4" />
           <path d="M 1 11.5 V 19 C 1 20.9, 5.5 22.5, 11 22.5 C 16.5 22.5, 21 20.9, 21 19 V 11.5" />
         </g>
-        <text class="src-label" x="98" y="496" style="font-size:18px;font-weight:600;">Other EHRs</text>
+        <text class="src-label" x="98" y="536" style="font-size:18px;font-weight:600;">Other EHRs</text>
       </g>
 
       <!-- ===== Flow lines (visible dashed paths) ===== -->
@@ -327,8 +327,7 @@
       </g>
 
       <!-- ===== Outflow packet (rendered behind hub so it emerges from card) ===== -->
-      <g class="packet-out" opacity="0">
-        <set attributeName="opacity" to="1" begin="2.3s" />
+      <g class="packet-out">
         <circle class="packet-glow" r="9">
           <animate attributeName="opacity" dur="4s" begin="2.3s" repeatCount="indefinite"
                    keyTimes="0;0.39;0.4;1" values="1;1;0;0" />
