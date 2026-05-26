@@ -1,0 +1,382 @@
+/* Lumane landing — warm editorial palette */
+:root {
+  --bg: #FBF8F3;
+  --card: #FDFCF9;
+  --sand: #F6F2EB;
+  --beige: #F1ECE3;
+  --oat: #EFEBE4;
+  --taupe: #EBE5DA;
+  --tan: #E6DFD2;
+  --ink: #21262F;
+  --slate: #33384A;
+  --muted: #71798C;
+  --muted-2: #7E8597;
+  --teal: #D37863;
+  --teal-deep: #B55B45;
+  --teal-soft: #f5dcd4;
+  --green: #327F77;
+  --green-deep: #285F59;
+  --green-soft: #d8e8e6;
+  --red: #DC2828;
+  --on-dark: #FAFAFA;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern", "liga";
+  line-height: 1.55;
+}
+
+
+.font-display {
+  font-family: 'Lora', Georgia, serif;
+  letter-spacing: -0.018em;
+  line-height: 1.08;
+  font-weight: 500;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.wrap-narrow { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+
+/* ─── Buttons ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 500;
+  transition: all .2s ease; cursor: pointer; border: none;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--teal); color: #ffffff; }
+.btn-primary:hover { background: var(--teal-deep); transform: translateY(-1px); color: #ffffff; }
+a.btn-primary, a.btn-primary:visited { color: #ffffff; }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--taupe); }
+.btn-outline {
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--tan);
+}
+.btn-outline:hover { background: var(--sand); border-color: var(--muted); }
+
+/* ─── Header ─────────────────────────────────────────── */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(251, 248, 243, 0.85);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid rgba(230, 223, 210, 0.6);
+}
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1200px; margin: 0 auto; padding: 18px 32px;
+}
+.brand {
+  display: inline-flex; align-items: center;
+}
+.brand-logo {
+  height: 48px; width: auto; display: block;
+}
+.brand-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--teal); display: inline-block;
+}
+.nav-links { display: flex; gap: 28px; align-items: center; font-size: 13px; }
+.nav-links a { color: var(--muted); transition: color .15s; }
+.nav-links a:hover { color: var(--ink); }
+
+/* ─── Editorial photo placeholders ───────────────────── */
+.photo {
+  position: relative; overflow: hidden; border-radius: 4px;
+  background: linear-gradient(135deg, #e8dfcc 0%, #d6c8af 60%, #c4b294 100%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 30px 60px -30px rgba(33, 38, 47, 0.3);
+}
+.photo::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.06) 0 2px, transparent 2px 4px),
+    radial-gradient(ellipse at 30% 20%, rgba(255, 240, 210, 0.5), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(180, 140, 100, 0.3), transparent 60%);
+  mix-blend-mode: overlay;
+}
+.photo::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 50%, rgba(33,38,47,0.18) 100%);
+}
+.photo-label {
+  position: absolute; left: 16px; bottom: 16px; right: 16px;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(33, 38, 47, 0.85);
+  background: rgba(253, 252, 249, 0.92);
+  backdrop-filter: blur(6px);
+  padding: 10px 12px; border-radius: 3px;
+  border-left: 2px solid var(--teal);
+  line-height: 1.5;
+  max-width: 380px;
+}
+.photo-label .lbl-key {
+  display: block; color: var(--muted); margin-bottom: 4px;
+  font-size: 9px;
+}
+.photo.warm-1 {
+  background:
+    radial-gradient(ellipse at 25% 30%, #f4d6a8 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 70%, #b8896b 0%, transparent 60%),
+    linear-gradient(160deg, #d9bf9a, #8a684e);
+}
+.photo.warm-2 {
+  background:
+    radial-gradient(ellipse at 50% 35%, #f6dcb8 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 80%, #c89c75 0%, transparent 55%),
+    linear-gradient(180deg, #e0c39e, #6f553f);
+}
+.photo.warm-3 {
+  background:
+    radial-gradient(ellipse at 60% 40%, #ead0a8 0%, transparent 55%),
+    radial-gradient(ellipse at 20% 75%, #a47a5a 0%, transparent 55%),
+    linear-gradient(200deg, #d4b58b, #5a4332);
+}
+.photo.cool-1 {
+  background:
+    radial-gradient(ellipse at 50% 50%, #d8d3c4 0%, transparent 60%),
+    linear-gradient(180deg, #c8c0ae, #6e6856);
+}
+
+/* ─── Product UI fragments (floating cards) ──────────── */
+.ui-card {
+  background: var(--card);
+  border: 1px solid var(--tan);
+  border-radius: 12px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 24px 48px -24px rgba(33, 38, 47, 0.2),
+    0 4px 12px -4px rgba(33, 38, 47, 0.06);
+}
+
+/* ─── Animations ─────────────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise .9s cubic-bezier(.2,.6,.2,1) both; }
+.rise-2 { animation-delay: .1s; }
+.rise-3 { animation-delay: .2s; }
+.rise-4 { animation-delay: .3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .rise-2, .rise-3, .rise-4 { animation: none; }
+}
+
+/* ─── Section spacing ────────────────────────────────── */
+section { padding: 120px 0; }
+section.tight { padding: 80px 0; }
+
+/* ─── Type scale ─────────────────────────────────────── */
+.h-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted);
+}
+.h-display { font-family: 'Lora', serif; font-size: clamp(40px, 5.5vw, 68px); font-weight: 500; letter-spacing: -0.022em; line-height: 1.04; }
+.h-1 { font-family: 'Lora', serif; font-size: clamp(34px, 4vw, 52px); font-weight: 500; letter-spacing: -0.018em; line-height: 1.08; }
+.h-2 { font-family: 'Lora', serif; font-size: clamp(26px, 2.6vw, 36px); font-weight: 500; letter-spacing: -0.012em; line-height: 1.15; }
+.lede {
+  font-size: 18px; line-height: 1.55; color: var(--slate);
+  max-width: 56ch;
+}
+.body { color: var(--slate); font-size: 16px; line-height: 1.65; }
+.muted { color: var(--muted); }
+
+/* ─── Footer ─────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--tan); margin-top: 0;
+  padding: 64px 0 40px;
+}
+
+/* ─── Utility ────────────────────────────────────────── */
+.divider-dot {
+  display: inline-block; width: 4px; height: 4px;
+  background: var(--muted); border-radius: 50%;
+  vertical-align: middle; margin: 0 10px;
+}
+
+.scroll-mt { scroll-margin-top: 80px; }
+
+/* ─── Mobile (≤768px) ────────────────────────────────────
+   Inline styles (React style={{}}) win the cascade, so this
+   block uses attribute selectors + !important to override.
+*/
+@media (max-width: 768px) {
+  /* Containers */
+  .wrap, .wrap-narrow { padding: 0 20px; }
+  .nav { padding: 14px 20px; }
+
+  /* Header: spread About / For facilities evenly between Lumane and
+     the Get started button. `display: contents` collapses .nav-links'
+     own box so its three children become direct flex siblings of
+     .brand under .nav's existing justify-content: space-between. */
+  .nav-links { display: contents; font-size: 11.5px; }
+  .nav-links a.btn { padding: 6px 11px; font-size: 11.5px; }
+  .brand-logo { height: 36px; }
+
+  /* Section spacing — overrides inline 110/120/140px paddings */
+  section[style] { padding-top: 56px !important; padding-bottom: 56px !important; }
+
+  /* Collapse the wide multi-column grids used throughout the site
+     (1.35fr 1fr, 1fr 1.2fr, 1fr 1.4fr, 1.4fr 1fr, 1fr 1.6fr,
+     1.2fr 2fr, repeat(3, 1fr)). Small 1fr 1fr grids — billing
+     toggle, mismatch comparison — are intentionally untouched. */
+  [style*="1.1fr"],
+  [style*="1.2fr"],
+  [style*="1.35fr"],
+  [style*="1.4fr"],
+  [style*="1.6fr"],
+  [style*="repeat(3"],
+  [style*="repeat(4"] {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  /* Pillar's reverse trick uses direction:rtl on the grid —
+     undo so text reads top-to-bottom in source order on mobile */
+  [style*="direction: rtl"],
+  [style*="direction:rtl"] { direction: ltr !important; }
+
+  /* Floating .ui-card overlays stay absolutely positioned on mobile —
+     they're intentional editorial overlays. Per-card rules below
+     resize/reposition each one so it fits within the photo bounds
+     (no viewport overflow, no need for body overflow-x: clip). */
+
+  /* Hero "NOW SYNCED · Mercy General" chip — keep in bottom-right corner
+     of the photo, just smaller and within the photo bounds. */
+  .ui-card[style*="right: -36"] {
+    right: 12px !important;
+    bottom: 36px !important;
+    width: 180px !important;
+    padding: 9px 11px !important;
+  }
+
+  /* About hero photo: the subjects are right-of-center, so when the
+     image is cropped to fit the mobile (4:5) container, default
+     "center" position cuts off their right side. Shift the focal
+     point right so the subjects stay in frame. */
+  .photo[style*="about-exhale"] {
+    background-position: 70% center !important;
+  }
+
+  /* Pillar 1 "1 MISMATCH FOUND" card — center horizontally relative to
+     the photo, with a subtle bottom overlap. */
+  .ui-card[style*="bottom: -32"] {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: 92% !important;
+    max-width: 360px !important;
+    bottom: -20px !important;
+  }
+
+  /* Pillar 2: drop the floating AUTO-PREPARED tag entirely on mobile. */
+  .auto-prepared-floating { display: none !important; }
+
+  /* The desktop-only forced break in the trust section's first point
+     ("Patient consent at / the core") collapses on mobile so the
+     title can flow naturally. */
+  br.trust-br { display: none; }
+
+  /* Photos: the source images are 4:5 portrait, but desktop containers
+     force landscape aspect ratios (5/4, 21/9). On mobile that produces
+     severe vertical cropping. Force portrait aspect on mobile so the
+     full image is visible. Excludes absolutely-positioned photos
+     (e.g. ReadinessVisual's backing strip) which size from their insets. */
+  .photo:not([style*="absolute"]) {
+    aspect-ratio: 4 / 5 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  /* Same fix for non-.photo wrapper divs that set inline aspect-ratio
+     (about.html and for-facilities.html hero use 21/9 on a plain div) */
+  [style*="aspect-ratio: 21"],
+  [style*="aspect-ratio:21"],
+  [style*="aspect-ratio: 5/4"],
+  [style*="aspect-ratio: 5 / 4"] {
+    aspect-ratio: 4 / 5 !important;
+    min-height: 0 !important;
+  }
+  /* The ReadinessVisual backing photo is positioned absolutely with
+     inset; aspect-ratio is ignored when all four sides are pinned, so
+     this rule doesn't affect it. */
+
+  /* Hero: shrink the 160px gap between copy and imagery */
+  [style*="margin-top: 160"] { margin-top: 56px !important; }
+
+  /* Pricing card padding 36 and InstitutionalCallout 44/48 */
+  [style*="padding: 36"] { padding: 22px !important; }
+  [style*="padding: 44px 48px"] { padding: 28px 22px !important; }
+
+  /* About + For-facilities hero callout: kills the negative-margin
+     overlap and 48px side margins that produced "skinny" text columns. */
+  [style*="margin-top: -120"] {
+    margin-top: 16px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 24px 22px !important;
+  }
+
+  /* Facilities cinematic hero: shrink the overlay padding on mobile so
+     copy doesn't get squeezed against the photo edges. */
+  [style*="padding: 64px 72px"] {
+    padding: 28px 22px !important;
+    align-items: flex-end !important;
+  }
+
+  /* Footer: keep the desktop 2-column layout on mobile (Lumane + ©
+     on the left, Company + Legal columns on the right). Just shrink
+     gaps, fonts, and column min-widths so it fits horizontally. */
+  .footer [style*="1.2fr 2fr"] {
+    grid-template-columns: 1.2fr 2fr !important;
+    gap: 16px !important;
+  }
+  .footer [style*="gap: 96"] {
+    gap: 14px !important;
+    justify-content: flex-end !important;
+    flex-wrap: nowrap;
+  }
+  .footer [style*="min-width: 120"] {
+    min-width: 0 !important;
+  }
+  .footer .brand-logo { height: 32px; }
+  .footer .mono { font-size: 9.5px; }
+  .footer ul li a { font-size: 12px; white-space: nowrap; }
+  .footer [style*="font-size: 12"] { font-size: 10.5px !important; }
+
+  /* ReadinessVisual phone + floating tag: keep phone centered,
+     prevent the absolute "AUTO-PREPARED" tag from colliding —
+     handled by the .ui-card absolute → relative rule above. */
+
+  /* SolutionSection: drop the desktop negative margins so the
+     iframe visual doesn't overlap the heading/intro or the
+     "result" paragraph at narrow widths. */
+  .solution-intro { margin-bottom: 24px !important; }
+  .solution-result { margin-top: 16px !important; }
+}

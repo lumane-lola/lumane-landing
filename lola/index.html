@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Lola — coming soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/main.css">
+<style>
+  /* Disable entrance animations — they can stall at opacity:0 in some preview envs */
+  .rise, .rise-2, .rise-3, .rise-4 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* One-viewport layout — no scroll */
+  html, body { height: 100%; overflow: hidden; }
+  body { display: flex; flex-direction: column; }
+  .site-header { flex: 0 0 auto; }
+  main { flex: 1 1 auto; display: flex; align-items: center; min-height: 0; }
+  main > section { width: 100%; }
+  .compact-footer { flex: 0 0 auto; }
+
+  /* If the viewport really can't fit (short laptops, mobile), allow scroll */
+  @media (max-height: 680px), (max-width: 900px) {
+    html, body { height: auto; overflow: auto; }
+    main { display: block; }
+  }
+
+  /* ─── Mobile (≤640px) tuning ─────────────────────────── */
+  @media (max-width: 640px) {
+    /* Header — keep chip visible & compact */
+    .soon-chip {
+      font-size: 10px;
+      padding: 5px 10px 5px 8px;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+
+    /* Hero section — comfortable mobile rhythm */
+    main > section[style] {
+      padding-top: 40px !important;
+      padding-bottom: 56px !important;
+    }
+    .hero-grid { gap: 36px; }
+
+    /* Headline scale-down for narrow screens */
+    .h-display.lola-h1 {
+      font-size: clamp(28px, 8vw, 36px) !important;
+      max-width: 100% !important;
+    }
+    .lede { font-size: 15px !important; }
+
+    /* Lola wordmark — keep wordmark + tag on one line, scale down */
+    [class="rise"] [style*="font-size: 30"] {
+      font-size: 26px !important;
+    }
+
+    /* Form card — tighter padding on narrow screens */
+    .waitlist-card { padding: 22px 20px; }
+
+    /* Mini-list — slightly tighter on mobile */
+    .mini-list { margin-top: 18px; padding-top: 16px; gap: 12px; }
+    .mini-list-v { font-size: 12px; }
+
+    /* Segmented role picker — allow 2-line labels gracefully */
+    .seg-option { padding: 11px 6px; font-size: 12.5px; }
+
+    /* Footer — stack the two lines if needed */
+    .compact-footer { padding: 16px 0 !important; }
+    .compact-footer .brand-logo { height: 26px !important; }
+  }
+  /* Page-specific styles for the waitlist landing */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+  }
+
+  /* Waitlist card */
+  .waitlist-card {
+    background: var(--card);
+    border: 1px solid var(--tan);
+    border-radius: 14px;
+    padding: 26px 28px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 24px 60px -28px rgba(20,16,12,0.18);
+  }
+  @media (max-width: 560px) { .waitlist-card { padding: 24px 22px; } }
+
+  .field-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 11px 14px;
+    font: inherit;
+    font-size: 14.5px;
+    color: var(--ink);
+    background: #ffffff;
+    border: 1px solid var(--tan);
+    border-radius: 10px;
+    transition: border-color .15s, box-shadow .15s;
+    box-sizing: border-box;
+  }
+  .form-input:hover { border-color: var(--taupe); }
+  .form-input:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(211,120,99,0.14);
+  }
+  .form-input::placeholder { color: var(--muted); opacity: 0.7; }
+
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .form-help {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Two-column row that stacks on narrow widths */
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 560px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+  /* Segmented role picker — matches signup.html vocabulary */
+  .seg-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .seg-option {
+    position: relative;
+    padding: 10px 8px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid var(--tan);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    transition: all .15s ease;
+    user-select: none;
+    line-height: 1.3;
+  }
+  .seg-option:hover { border-color: var(--taupe); transform: translateY(-1px); }
+  .seg-option.is-selected {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #ffffff;
+    box-shadow: 0 6px 18px -8px rgba(211,120,99,0.5);
+  }
+
+  /* Trio block */
+  .trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--tan);
+    border-bottom: 1px solid var(--tan);
+  }
+  @media (max-width: 760px) {
+    .trio { grid-template-columns: 1fr; }
+  }
+  .trio-item {
+    padding: 36px 32px;
+    border-right: 1px solid var(--tan);
+  }
+  .trio-item:last-child { border-right: none; }
+  @media (max-width: 760px) {
+    .trio-item { border-right: none; border-bottom: 1px solid var(--tan); padding: 28px 0; }
+    .trio-item:last-child { border-bottom: none; }
+  }
+
+  /* Compact h1 so we fit one screen */
+  .h-display.lola-h1 {
+    font-size: clamp(30px, 4vw, 46px) !important;
+    line-height: 1.05;
+  }
+  /* Inline "what Lola does" mini-list — lives inside the hero */
+  .mini-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--tan);
+    max-width: 46ch;
+  }
+  .mini-list-row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .mini-list-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+  }
+  .mini-list-k {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .mini-list-v {
+    font-size: 12.5px;
+    color: var(--slate);
+    margin-top: 1px;
+    line-height: 1.4;
+  }
+
+  .soon-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px 6px 10px;
+    background: rgba(211,120,99,0.10);
+    border: 1px solid rgba(211,120,99,0.25);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+  }
+  .soon-chip .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(211,120,99,0.55);
+    animation: soon-pulse 1.8s ease-out infinite;
+  }
+  @keyframes soon-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(211,120,99,0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(211,120,99,0); }
+    100% { box-shadow: 0 0 0 0 rgba(211,120,99,0); }
+  }
+
+  /* Preview ui card on the right */
+  .preview-stack {
+    position: relative;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="../config.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState } = React;
+
+// ─── Brand + Header ──────────────────────────────────────
+function Header() {
+  return (
+    <header className="site-header">
+      <nav className="nav">
+        <a className="brand" href="/" aria-label="Lumane home">
+          <img src="LumaneLogo.png" alt="Lumane" className="brand-logo" />
+        </a>
+        <div className="nav-links">
+          <span className="soon-chip"><span className="pulse"></span>Coming soon</span>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+// ─── Floating preview card — what caregivers will see ────
+function PreviewCard() {
+  return (
+    <div className="ui-card" style={{ padding: 22, width: '100%' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+        <div>
+          <div className="mono" style={{ fontSize: 9.5, color: 'var(--muted-2)' }}>SHARED RECORD</div>
+          <div style={{ fontFamily: 'Lora, serif', fontSize: 18, fontWeight: 500, marginTop: 3, letterSpacing: '-0.01em' }}>
+            Dad &middot; Robert J.
+          </div>
+        </div>
+        <div style={{
+          fontSize: 10, fontFamily: 'JetBrains Mono, monospace',
+          background: 'var(--green-soft)', color: 'var(--green-deep)',
+          padding: '4px 8px', borderRadius: 4, letterSpacing: '0.08em',
+        }}>UP TO DATE</div>
+      </div>
+
+      {[
+        { label: 'Mercy General · Cardiology', meta: '14 records · 2m ago', dot: 'var(--green)' },
+        { label: 'Westside Family Medicine', meta: '38 records · 2m ago', dot: 'var(--green)' },
+        { label: 'Mountain View Pharmacy', meta: '12 active medications', dot: 'var(--green)' },
+      ].map((r, i) => (
+        <div key={i} style={{
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          padding: '12px 0', borderTop: '1px solid var(--tan)',
+        }}>
+          <div>
+            <div style={{ fontSize: 13.5, color: 'var(--ink)', fontWeight: 500 }}>{r.label}</div>
+            <div style={{
+              fontSize: 10.5, color: 'var(--muted)', marginTop: 2,
+              fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.05em',
+            }}>{r.meta}</div>
+          </div>
+          <div style={{
+            width: 8, height: 8, borderRadius: '50%', background: r.dot,
+            boxShadow: '0 0 0 4px rgba(50,127,119,0.12)',
+          }}></div>
+        </div>
+      ))}
+
+      <div style={{
+        marginTop: 16, paddingTop: 14, borderTop: '1px solid var(--tan)',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      }}>
+        <div style={{ fontSize: 12, color: 'var(--muted)' }}>Shared with</div>
+        <div style={{ display: 'flex', gap: -6 }}>
+          {['MR', 'DR', 'JL'].map((a, i) => (
+            <div key={i} style={{
+              width: 26, height: 26, borderRadius: '50%',
+              background: ['var(--teal)', 'var(--green)', 'var(--slate)'][i],
+              color: '#fff', fontSize: 10, fontWeight: 600,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              border: '2px solid var(--card)', marginLeft: i === 0 ? 0 : -6,
+              fontFamily: 'Inter, sans-serif',
+            }}>{a}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SmallChip() {
+  return (
+    <div className="ui-card" style={{
+      position: 'absolute', right: -28, bottom: -22,
+      padding: '11px 14px', width: 230,
+    }}>
+      <div className="mono" style={{ fontSize: 9.5, color: 'var(--green-deep)' }}>SHARED WITH DR. PATEL</div>
+      <div style={{ fontFamily: 'Lora, serif', fontSize: 13.5, fontWeight: 500, marginTop: 4, lineHeight: 1.35 }}>
+        Pre-visit brief sent &middot; 8:14 AM
+      </div>
+    </div>
+  );
+}
+
+// ─── Waitlist form ───────────────────────────────────────
+const ROLES = [
+  { id: 'caregiver',    label: 'Caregiver' },
+  { id: 'patient',      label: 'Patient' },
+  { id: 'professional', label: 'Medical professional' },
+  { id: 'other',        label: 'Other' },
+];
+
+function WaitlistForm() {
+  const [form, setForm] = useState({
+    firstName: '', lastName: '', role: '', email: '', phone: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [errors, setErrors] = useState({});
+
+  function update(k, v) {
+    setForm((f) => ({ ...f, [k]: v }));
+    if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
+  }
+
+  async function handleSubmit(ev) {
+    ev.preventDefault();
+    const e = {};
+    if (!form.firstName.trim()) e.firstName = 'Required';
+    if (!form.lastName.trim()) e.lastName = 'Required';
+    if (!form.role) e.role = 'Pick one';
+    if (!form.email.trim()) e.email = 'Required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email';
+    if (Object.keys(e).length) { setErrors(e); return; }
+
+    const url = (window.LUMANE_CONFIG || {}).LOLA_WAITLIST_URL;
+    if (!url) {
+      setSubmitError('Signup is temporarily unavailable. Please email hello@lumane.health.');
+      return;
+    }
+
+    setSubmitting(true);
+    setSubmitError('');
+    try {
+      // text/plain avoids a CORS preflight against Apps Script.
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          formType: 'lola-waitlist',
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          role: form.role,
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          userAgent: navigator.userAgent,
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.ok) {
+        if (json && json.fields) setErrors(json.fields);
+        setSubmitError(json.error || 'Something went wrong. Please try again.');
+        return;
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError('Network error. Please check your connection and try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (submitted) {
+    return (
+      <div style={{ textAlign: 'center', padding: '12px 4px' }}>
+        <div style={{
+          width: 48, height: 48, borderRadius: '50%',
+          background: 'var(--teal)', color: '#fff',
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 24, marginBottom: 18,
+        }}>✓</div>
+        <h3 className="font-display" style={{ fontSize: 22, marginBottom: 10 }}>You're on the list.</h3>
+        <p style={{ fontSize: 14, color: 'var(--muted)', maxWidth: '36ch', margin: '0 auto', lineHeight: 1.55 }}>
+          We'll email <strong style={{ color: 'var(--ink)' }}>{form.email}</strong> as soon as Lola opens to caregivers.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      <div className="mono" style={{ marginBottom: 14, color: 'var(--teal-deep)' }}>◦ &nbsp; Join the waitlist</div>
+      <h3 className="font-display" style={{ fontSize: 20, lineHeight: 1.2, marginBottom: 16 }}>
+        Be first when Lola opens.
+      </h3>
+
+      <div style={{ display: 'grid', gap: 12 }}>
+        <div className="form-row-2">
+          <div>
+            <label className="field-label" htmlFor="firstName">First name</label>
+            <input
+              id="firstName"
+              type="text"
+              className="form-input"
+              placeholder="Maria"
+              value={form.firstName}
+              onChange={(e) => update('firstName', e.target.value)}
+              autoComplete="given-name"
+              style={errors.firstName ? { borderColor: '#b8463a' } : undefined}
+            />
+            {errors.firstName && <div className="form-help" style={{ color: '#b8463a' }}>{errors.firstName}</div>}
+          </div>
+          <div>
+            <label className="field-label" htmlFor="lastName">Last name</label>
+            <input
+              id="lastName"
+              type="text"
+              className="form-input"
+              placeholder="Reyes"
+              value={form.lastName}
+              onChange={(e) => update('lastName', e.target.value)}
+              autoComplete="family-name"
+              style={errors.lastName ? { borderColor: '#b8463a' } : undefined}
+            />
+            {errors.lastName && <div className="form-help" style={{ color: '#b8463a' }}>{errors.lastName}</div>}
+          </div>
+        </div>
+
+        <div>
+          <label className="field-label">I am a&hellip;</label>
+          <div className="seg-group" role="radiogroup" aria-label="Your role">
+            {ROLES.map((r) => (
+              <div
+                key={r.id}
+                role="radio"
+                aria-checked={form.role === r.id}
+                tabIndex={0}
+                className={'seg-option' + (form.role === r.id ? ' is-selected' : '')}
+                onClick={() => update('role', r.id)}
+                onKeyDown={(ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); update('role', r.id); } }}
+              >
+                {r.label}
+              </div>
+            ))}
+          </div>
+          {errors.role && <div className="form-help" style={{ color: '#b8463a' }}>{errors.role}</div>}
+        </div>
+
+        <div>
+          <label className="field-label" htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            className="form-input"
+            placeholder="you@example.com"
+            value={form.email}
+            onChange={(e) => update('email', e.target.value)}
+            autoComplete="email"
+            style={errors.email ? { borderColor: '#b8463a' } : undefined}
+          />
+          {errors.email && <div className="form-help" style={{ color: '#b8463a' }}>{errors.email}</div>}
+        </div>
+
+        <div>
+          <label className="field-label" htmlFor="phone">
+            Phone <span style={{ textTransform: 'none', letterSpacing: 0, fontFamily: 'Inter, sans-serif', fontSize: 12, opacity: 0.8, marginLeft: 6 }}>&mdash; optional</span>
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            className="form-input"
+            placeholder="(555) 123-4567"
+            value={form.phone}
+            onChange={(e) => update('phone', e.target.value)}
+            autoComplete="tel"
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary submit-btn" style={{ marginTop: 6 }} disabled={submitting}>
+          {submitting ? 'Submitting…' : 'Notify me →'}
+        </button>
+
+        {submitError && (
+          <div className="form-help" style={{ color: '#b8463a', textAlign: 'center', marginTop: 2 }}>
+            {submitError}
+          </div>
+        )}
+
+        <div className="form-help" style={{ textAlign: 'center', marginTop: 2 }}>
+          No spam. One email at launch.
+        </div>
+      </div>
+    </form>
+  );
+}
+
+// ─── Hero ────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section style={{ padding: '24px 0' }}>
+      <div className="wrap">
+        <div className="hero-grid">
+          {/* Left: pitch + form */}
+          <div>
+            <div className="rise" style={{
+              display: 'inline-flex', alignItems: 'baseline', gap: 14,
+              marginBottom: 18,
+            }}>
+              <span style={{
+                fontFamily: 'Lora, Georgia, serif',
+                fontStyle: 'italic',
+                fontWeight: 600,
+                fontSize: 30,
+                letterSpacing: '-0.02em',
+                color: 'var(--teal-deep)',
+                lineHeight: 1,
+                position: 'relative',
+                display: 'inline-block',
+              }}>
+                Lola
+                <span aria-hidden="true" style={{
+                  position: 'absolute',
+                  left: '8%', right: '8%',
+                  bottom: -3, height: 2,
+                  background: 'var(--teal)',
+                  borderRadius: 2,
+                  opacity: 0.55,
+                }}></span>
+              </span>
+              <span aria-hidden="true" style={{
+                width: 1, height: 16,
+                background: 'var(--tan)',
+                display: 'inline-block',
+                transform: 'translateY(2px)',
+              }}></span>
+              <span className="mono" style={{ color: 'var(--muted)', fontSize: 11 }}>
+                by Lumane
+              </span>
+            </div>
+            <h1 className="h-display lola-h1 rise rise-2" style={{ maxWidth: '14ch' }}>
+              One record, <em style={{
+                fontStyle: 'italic', color: 'var(--teal-deep)',
+                position: 'relative', display: 'inline-block',
+              }}>
+                shared
+                <svg
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-2%', bottom: -8, width: '104%', height: 16, overflow: 'visible', pointerEvents: 'none' }}
+                  viewBox="0 0 200 18"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M 4 9 Q 50 13, 100 10 T 196 8"
+                    fill="none"
+                    stroke="var(--teal-deep)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </em> with everyone who cares for them.
+            </h1>
+            <p className="lede rise rise-3" style={{ marginTop: 16, maxWidth: '46ch', fontSize: 16 }}>
+              Lola pulls your loved one's records from every provider they see &mdash; then shares one clear view with the caregivers and doctors who need it.
+            </p>
+
+            <div className="mini-list rise rise-3">
+              {[
+                { k: 'Pulls every record', v: 'Works with 46,000+ practices nationwide — Stanford, UCSF, Sutter Health, Mayo Clinic, Cleveland Clinic, Kaiser Permanente, and many more....' },
+                { k: 'Reconciles the conflicts', v: 'Medications, diagnoses, and labs across providers. One source of truth.' },
+                { k: 'Shares with your circle', v: 'Caregivers and doctors see the same view. Patient/POA consent required.' },
+              ].map((it, i) => (
+                <div key={i} className="mini-list-row">
+                  <span className="mini-list-num">0{i + 1}</span>
+                  <div>
+                    <div className="mini-list-k">{it.k}</div>
+                    <div className="mini-list-v">{it.v}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: waitlist card */}
+          <div className="rise rise-4">
+            <div className="waitlist-card">
+              <WaitlistForm />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── What Lola does — terse trio ─────────────────────────
+function WhatItDoes() {
+  const items = [
+    {
+      k: 'Pulls every record',
+      v: 'From hospitals, pharmacies, specialists — even small offices that still fax.',
+    },
+    {
+      k: 'Reconciles the conflicts',
+      v: 'Medications, diagnoses, and labs across providers. One source of truth.',
+    },
+    {
+      k: 'Shares with your circle',
+      v: 'Caregivers and doctors see the same view. Patient/POA consent required.',
+    },
+  ];
+  return (
+    <section style={{ padding: '40px 0 100px' }}>
+      <div className="wrap">
+        <div className="trio">
+          {items.map((it, i) => (
+            <div key={i} className="trio-item">
+              <div className="mono" style={{ marginBottom: 14 }}>0{i + 1}</div>
+              <div className="font-display" style={{ fontSize: 19, marginBottom: 10, color: 'var(--ink)' }}>{it.k}</div>
+              <div className="body" style={{ fontSize: 14, color: 'var(--slate)' }}>{it.v}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Footer ──────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer className="footer compact-footer" style={{ padding: '20px 0' }}>
+      <div className="wrap">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <img src="LumaneLogo.png" alt="Lumane" className="brand-logo" style={{ height: 32 }} />
+            <div style={{ fontSize: 12, color: 'var(--muted)' }}>© 2026 Lumane Health, Inc.</div>
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--muted)' }}>
+            Patient consent at the core &middot; HIPAA-aware
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Header />
+      <main>
+        <Hero />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
