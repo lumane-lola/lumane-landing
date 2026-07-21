@@ -1,4 +1,4 @@
-# Local-only env (URL also lives in committed config.js since it ships to the browser)
+# Local-only env
 .env
 
 # Editor / OS
