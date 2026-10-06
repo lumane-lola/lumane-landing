@@ -2,4 +2,5 @@
 window.LUMANE_CONFIG = {
   SIGNUP_URL: '',        // Google Apps Script /exec URL — signup.html + facility-demo.html
   LOLA_WAITLIST_URL: '', // Google Apps Script /exec URL — lola/ waitlist
+  DISCHARGE_EARLY_ACCESS_URL: '', // Google Apps Script /exec URL — discharge-teams/ Early Access
 };

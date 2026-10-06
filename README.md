@@ -10,10 +10,12 @@ Static marketing site for [lumane.health](https://lumane.health) — the care tr
 ├── privacy/index.html           # Privacy notice
 ├── terms/index.html             # Terms of service
 ├── lola/                        # Lola waitlist page (self-contained)
+├── discharge-teams/             # "For discharge teams" Early Access page (self-contained: own styles.css + page.js)
 ├── apps-script/lola-waitlist.gs # Apps Script backing the Lola waitlist form
+├── apps-script/discharge-early-access.gs # Apps Script: logs Early Access requests to a Sheet + emails team@lumane.health
 ├── styles/site.css              # Design tokens + all site styles
 ├── js/site.js                   # Reveal-on-scroll, nav fade, page transitions, "Let's talk" modal
-├── config.js                    # Apps Script endpoints (demo booking + Lola waitlist)
+├── config.js                    # Apps Script endpoints (demo booking + Lola waitlist + discharge Early Access)
 ├── assets/                      # Images: logos, founders, hero photo
 ├── favicon.svg
 └── CNAME                        # GitHub Pages custom domain
@@ -29,7 +31,7 @@ The site implements the **Lumane Health UI design system** (from the Claude Desi
 
 ## Pages
 
-Every page is plain static HTML — no build step, no framework. Shared header/footer markup is duplicated per page; if you change it, change it everywhere (index, about, terms, privacy).
+Every page is plain static HTML — no build step, no framework. Shared header/footer markup is duplicated per page; if you change it, change it everywhere (index, about, terms, privacy). /discharge-teams/ has its own header/footer from the design-system kit; keep its nav links in sync too.
 
 Every "Let's talk" CTA (marked `data-talk`) opens the demo-booking modal, which POSTs to the Apps Script endpoint in `config.js` (`SIGNUP_URL`, payload `formType: 'facility-demo'`). The links keep `mailto:team@lumane.health` as the no-JS fallback.
 
